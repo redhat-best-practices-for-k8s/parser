@@ -1,0 +1,93 @@
+    .accordion-button:not(.collapsed) {
+      background-color: #9935dc;
+      color: white;
+    }
+
+    .btn-purple.collapsed {
+      background-color: #9935dc;
+      color: white;
+    }
+
+    li.dropdown-menu {
+      background-color: white;
+    }
+
+    tg { /* stylelint-disable-line */
+      background-color: #28a745;
+    }
+
+    tred { /* stylelint-disable-line */
+      background-color: #dc3545;
+      color: white
+    }
+
+    tpurple { /* stylelint-disable-line */
+      background-color: #9935dc;
+      color: white
+    }
+
+    ty { /* stylelint-disable-line */
+      background-color: #ffc107;
+    }
+
+    tgy { /* stylelint-disable-line */
+      background-color: #ced4da;
+    }
+
+    body {
+      font-family: sans-serif;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 1.75em;
+    }
+
+    ul li {
+      border-bottom-left-radius: 0.75em;
+      border-top-left-radius: 0.75em;
+      margin: 2px 0;
+      position: relative;
+    }
+
+    ul li a {
+      background-color: #eee;
+      border-radius: 50%;
+      color: #000;
+      display: inline-block;
+      height: 1.5em;
+      left: -1.5em;
+      line-height: 1.5em;
+      position: absolute;
+      text-align: center;
+      text-decoration: none;
+      width: 1.5em;
+    }
+
+    ul li a.plus {
+      background-color: #77aeff;
+    }
+
+    ul li a.minus {
+      background-color: #eee;
+    }
+
+    ul li a:active {
+      top: 1px;
+    }
+
+    ul li span {
+      display: inline-block;
+      margin: 0.25em 0.5em;
+    }
+
+    .top-right {
+      font-size: small;
+      position: fixed;
+      right: 1em;
+      top: 1em;
+    }
+
+    progress{
+      width:0%
+    }
