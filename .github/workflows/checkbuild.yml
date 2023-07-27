@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install nodejs
-        run: sudo apt-get update; sudo apt-get -y install nodejs npm; npm install inline-source
+        run: sudo apt-get update && sudo apt-get -y install nodejs npm && npm install inline-source
       - name: modify build sccript
         run: sed -i 's/results.html/test.html/g' html/build.js
       - name: generate test.html
-        run: cd html; node build.js
+        run: cd html && node build.js
       - name: compare results.html with test.html
-        run: cd html;diff results.html test.html
+        run: cd html && diff results.html test.html

@@ -1,2 +1,2 @@
 build:
-	cd html;node build.js
+	cd html && node build.js
