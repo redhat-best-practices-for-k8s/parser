@@ -52,7 +52,7 @@ The release version of the parser is based on the claim format version. The patc
 Users can write notes or feedback about their test run in the HTML parser. 
 This displayed results and feedback can be downloaded as a static HTML page to be shared. 
 Users can also save their feedback as a json file for later use. 
-To load a file containing previouly entered feedback, users can
+To load a file containing previously entered feedback, users can
 upload their `feedback.json` file to the parser HTML page via the `Upload Feedback File` button.  Alternatively,
 users can convert their `feedback.json` to `feedback.js` and place it in the same folder as the result.html page.
 The feedback will be loaded automatically.

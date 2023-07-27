@@ -352,7 +352,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   // Now we should populate the item contents
   commonTestTextContent += '<div id="' + itemid + '" class="accordion-collapse collapse" aria-labelledby="' + headingid + '">'
   commonTestTextContent += '<div class="accordion-body" >'
-  // Inside the accordion, 1 table with the following colummns. header below:
+  // Inside the accordion, 1 table with the following columns header below:
   commonTestTextContent += '<h1>Results</h1>'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
@@ -924,7 +924,7 @@ function expand (data, event) {
   }
 }
 
-// event listerner for collapsing items
+// event listener for collapsing items
 function collapse (data, event) {
   event.preventDefault()
   event.stopPropagation()
@@ -1005,7 +1005,7 @@ function updateProgressBar (value) {
   }
 }
 
-// Initalize the progress bar to 0%
+// Initialize the progress bar to 0%
 function initProgressBar () {
   const progressBar = document.querySelector('.progress-bar')
   progressBar.style.width = '0%'
