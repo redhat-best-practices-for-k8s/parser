@@ -9,3 +9,7 @@ updates:
     directory: /html
     schedule:
       interval: daily
+  - package-ecosystem: yarn
+    directory: /
+    schedule:
+      interval: daily
