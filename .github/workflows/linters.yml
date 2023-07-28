@@ -13,9 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Init yarn
-        run: yarn init -y
-      - name: Install standard modules
-        run: yarn add standard
+        run: yarn install
       - name: Run Standard
         run: yarn standard html/index.js
       - uses: crate-ci/typos@master
@@ -25,14 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Init yarn
-        run: yarn init -y
-      - name: Install standard modules
-        run: yarn add stylelint stylelint-config-standard
-      - name: create stylelint config file
-        run: |
-          cat << EOF > .stylelintrc
-          { "extends": ["stylelint-config-standard"] }
-          EOF
+        run: yarn install
       - name: Run stylelint
         run: yarn stylelint html/*.css
   html-linter:
