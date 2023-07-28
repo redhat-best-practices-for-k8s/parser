@@ -1,0 +1,14 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:test-network-function/parser.git",
+  "author": "Parser Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "inline-source": "^8.0.2",
+    "standard": "^17.1.0",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard": "^34.0.0"
+  }
+}
