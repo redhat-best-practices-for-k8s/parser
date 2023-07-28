@@ -11,7 +11,7 @@ jobs:
     name: Javascript linter (standard)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Init yarn
         run: yarn init -y
       - name: Install standard modules
@@ -23,7 +23,7 @@ jobs:
     name: CSS linter (stylelint)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Init yarn
         run: yarn init -y
       - name: Install standard modules
@@ -39,7 +39,7 @@ jobs:
     name: HTML linter (html5validator) 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
           root: html/
