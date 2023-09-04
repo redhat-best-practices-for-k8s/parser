@@ -11,7 +11,7 @@ jobs:
     name: check if result.html is up to date with index.html
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: install nodejs
         run: sudo apt-get update && sudo apt-get -y install nodejs npm && npm install inline-source
       - name: modify build sccript
