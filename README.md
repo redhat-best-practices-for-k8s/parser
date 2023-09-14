@@ -1,5 +1,6 @@
 # The HTML parser
 
+[![linters](https://github.com/test-network-function/parser/actions/workflows/linters.yml/badge.svg)](https://github.com/test-network-function/parser/actions/workflows/linters.yml)
 [![release)](https://img.shields.io/github/v/release/test-network-function/parser?color=blue&label=%20&logo=semver&logoColor=white&style=flat)](https://github.com/test-network-function/parser/releases)
 [![red hat](https://img.shields.io/badge/red%20hat---?color=gray&logo=redhat&logoColor=red&style=flat)](https://www.redhat.com)
 [![openshift](https://img.shields.io/badge/openshift---?color=gray&logo=redhatopenshift&logoColor=red&style=flat)](https://www.redhat.com/en/technologies/cloud-computing/openshift)
