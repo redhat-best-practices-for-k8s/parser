@@ -593,6 +593,36 @@ function getHtmlResults () {
   const doc = document.implementation.createHTMLDocument()
   const head = doc.head
   const body = doc.body
+
+  const script = doc.createElement('script')
+  script.type = 'text/javascript'
+  script.textContent = `
+  function filterTestCasesBasedOnStateHandler(tableId, tableName, state, mandatoryOptional) { // eslint-disable-line no-unused-vars
+    const checkBox = document.getElementById('filter-' + mandatoryOptional + '-' + state + '-' + tableName)
+    const show = checkBox.checked
+    if (show) {
+      checkBox.setAttribute('checked', '')
+    } else {
+      checkBox.removeAttribute('checked')
+    }
+    const tableIdClean = tableId.replace(/#/g, '')
+    const table = document.getElementById(tableIdClean)
+    const elements = table.getElementsByClassName('accordion-item')
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i]
+      const id = element.getAttribute('data-id')
+      if (id === state) {
+        if (show === true) {
+          element.removeAttribute('hidden')
+        } else {
+          element.setAttribute('hidden', 'hidden')
+        }
+      }
+    }
+  }
+`
+  doc.head.appendChild(script)
+
   selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   insertResults(body, 'mandatory')
   if (selectScenarioComboBox.value !== 'all') {
@@ -611,12 +641,7 @@ function getHtmlResults () {
   })
 
   // Make document read-only
-  const checkboxes = doc.querySelectorAll('input[type="checkbox"]')
   const textareas = doc.querySelectorAll('textarea')
-
-  checkboxes.forEach(checkbox => {
-    checkbox.setAttribute('disabled', 'disabled')
-  })
 
   textareas.forEach(textarea => {
     textarea.readOnly = true
