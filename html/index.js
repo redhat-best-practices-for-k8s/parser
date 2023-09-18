@@ -313,14 +313,14 @@ function generateTestCasesStatsElement (tableElement, tableName, optionalMandato
     testText = '<thead><tr><th style="width:15%" scope="col">' + optionalMandatory + ' Test  summary (' + tableNameMap[tableName] + ')</th><th scope="col">Test feedback</th></tr></thead><tbody>'
   }
 
-  testText += '<tr><td class="align-top"><b>Total:</b> ' + testsTotal + '<br><b><tg>Passed:</tg></b> ' + testsPassed + ' '
-  testText += '<input type="checkbox" id="filter-' + optionalMandatory + '-passed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'passed\',\'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tgy>Skipped:</tgy></b> ' + testsSkipped + ' '
-  testText += '<input type="checkbox" id="filter-' + optionalMandatory + '-skipped-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'skipped\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><' + colorFailed + '>Failed:</' + colorFailed + '></b> ' + testsFailed + ' '
-  testText += '<input type="checkbox" id="filter-' + optionalMandatory + '-failed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'failed\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tpurple>Aborted:</tpurple></b> ' + testsAborted + ' '
-  testText += '<input type="checkbox" id="filter-' + optionalMandatory + '-aborted-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'aborted\', \'' + optionalMandatory + '\' )" >'
+  testText += '<tr><td class="align-top"><b><tblack>Total:</tblack></b><tblack> ' + testsTotal + '</tblack><br><b><tg>Passed:</tg></b> <tblack>' + testsPassed + '</tblack> '
+  testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-passed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'passed\',\'' + optionalMandatory + '\' )" >'
+  testText += '<br><b><tgy>Skipped:</tgy></b> <tblack>' + testsSkipped + '</tblack> '
+  testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-skipped-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'skipped\', \'' + optionalMandatory + '\' )" >'
+  testText += '<br><b><' + colorFailed + '>Failed:</' + colorFailed + '></b> <tblack>' + testsFailed + '</tblack> '
+  testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-failed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'failed\', \'' + optionalMandatory + '\' )" >'
+  testText += '<br><b><tpurple>Aborted:</tpurple></b> <tblack>' + testsAborted + '</tblack> '
+  testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-aborted-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'aborted\', \'' + optionalMandatory + '\' )" >'
   testText += '</td><td>'
   testText += '<div class="accordion" id="results-accordion">'
   return testText
