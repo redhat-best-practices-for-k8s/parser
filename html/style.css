@@ -12,26 +12,35 @@
       background-color: white;
     }
 
-    tg { /* stylelint-disable-line */
+    tg {/* stylelint-disable-line */
       background-color: #28a745;
+      font-size: 25px;
     }
 
-    tred { /* stylelint-disable-line */
+    tred {/* stylelint-disable-line */
       background-color: #dc3545;
-      color: white
+      color: white;
+      font-size: 25px;
     }
 
-    tpurple { /* stylelint-disable-line */
+    tpurple {/* stylelint-disable-line */
       background-color: #9935dc;
-      color: white
+      color: white;
+      font-size: 25px;
     }
 
-    ty { /* stylelint-disable-line */
+    ty {/* stylelint-disable-line */
       background-color: #ffc107;
+      font-size: 25px;
     }
 
-    tgy { /* stylelint-disable-line */
+    tgy {/* stylelint-disable-line */
       background-color: #ced4da;
+      font-size: 25px;
+    }
+
+    tblack {/* stylelint-disable-line */
+      font-size: 25px;
     }
 
     body {
@@ -88,6 +97,12 @@
       top: 1em;
     }
 
-    progress{
-      width:0%
+    progress {
+      width: 0%
     }
+
+    input.larger-checkbox {
+      width: 25px;
+      height: 25px;
+    }
+    
