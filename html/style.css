@@ -1,9 +1,5 @@
 
 
-@import "url('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css')";
-
-
-/* Add some basic styling */
 html, body {
   font-family: var(--rh-font-family-body-text, RedHatText, "Red Hat Text", "Noto Sans Arabic", "Noto Sans Hebrew", Helvetica, Arial, sans-serif);
   margin: 0;
@@ -60,7 +56,6 @@ input[type="checkbox"] {
 }
 
 label {
-  display: block;
   font-weight: var(--rh-font-weight-heading-bold, 700);
   margin-block-end: var(--rh-space-sm, 6px);
   display: inline-block;

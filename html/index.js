@@ -351,9 +351,9 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const headingid = 'heading' + id
 
   commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
-  itemid + '" aria-expanded="true"> <div class=tag-header><h6>' + currentTestResult.testID.id+buttontype + '</h6></rh-accordion-header>'
+   itemid + '" aria-expanded="true"> <div class=tag-header><h6>' + currentTestResult.testID.id+buttontype + '</h6></rh-accordion-header>'
 
-  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid+'>'
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<h1>Results</h1>'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
@@ -363,9 +363,6 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<th>State</th>'
   commonTestTextContent += '<th>Test output</th>'
   commonTestTextContent += '</tr></thead><tbody>'
-
- // content of the result table
- // eslint-disable-next-line no-undef
 
   dayjs.extend(window.dayjs_plugin_duration)
   const duration = dayjs.duration(currentTestResult.duration / 1000000)
@@ -625,10 +622,9 @@ function getHtmlResults () {
   }
 `
 
-// add"importmap"
-const scriptElement = document.createElement('script');
-scriptElement.type = 'importmap';
-scriptElement.textContent= ` {
+  const scriptElement = document.createElement('script');
+  scriptElement.type = 'importmap';
+  scriptElement.textContent= ` {
       "imports": {
         "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
         "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
@@ -659,7 +655,7 @@ scriptElement.textContent= ` {
   doc.head.appendChild(scriptElement)
   doc.head.appendChild(script)
   const sElement = document.createElement('script');
-  sElement.type="module"
+  sElement.type = "module"
   sElement.textContent = ` 
   // import design system element definitions,
   // which auto-register their tagnames once executed
@@ -975,9 +971,9 @@ function expand (data,elem, event) {
   event.stopPropagation()
   const et = event.target
   const parent = et.parentElement
-  const id = parent.id.replace('item-', '')
+  const id = parent.id.replace('item-' , '')
   const kids = getChildren(data, id)
-  const items = kids.map(generateListItem.bind(null, data))
+  const items = kids.map(generateListItem.bind(null , data))
   items.forEach(function (li) {
     elem.appendChild(li)
   })
@@ -990,16 +986,6 @@ function expand (data,elem, event) {
   }
 }
 
-// event listener for collapsing items
-function collapse (data, event) {
-  event.preventDefault()
-  event.stopPropagation()
-  const et = event.target
-  const parent = et.parentElement
-  const ul = parent.querySelector('sl-tree')
-  parent.removeChild(ul)
-  et.addEventListener('click', expand.bind(null, data), { once: true })
-}
 
 // create top level HTML object for tree view (e.g. all the parent-less/orphan objects )
 function addOrphans (data, rootObject) {
