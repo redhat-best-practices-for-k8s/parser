@@ -128,7 +128,8 @@ function filterTestCasesBasedOnStateHandler (tableId, tableName, state, mandator
   }
   const tableIdClean = tableId.replace(/#/g, '')
   const table = document.getElementById(tableIdClean)
-  const elements = table.getElementsByClassName('accordion-item')
+  const elements = table.getElementsByTagName('rh-accordion-header')
+
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i]
     const id = element.getAttribute('data-id')
@@ -167,6 +168,7 @@ function enableSendDownloadButton () {
 // hides all result specific objects, including tables, buttons, checkboxes
 function hideAllResultsTabObjects () {
   isResultTabActive = false
+  document.getElementById('progress-bar').setAttribute('hidden', 'hidden')
 
   document.getElementById('mandatory-far-edge-table').setAttribute('hidden', 'hidden')
   document.getElementById('mandatory-non-telco-table').setAttribute('hidden', 'hidden')
@@ -313,16 +315,16 @@ function generateTestCasesStatsElement (tableElement, tableName, optionalMandato
     testText = '<thead><tr><th style="width:15%" scope="col">' + optionalMandatory + ' Test  summary (' + tableNameMap[tableName] + ')</th><th scope="col">Test feedback</th></tr></thead><tbody>'
   }
 
-  testText += '<tr><td class="align-top"><b><tblack>Total:</tblack></b><tblack> ' + testsTotal + '</tblack><br><b><tg>Passed:</tg></b> <tblack>' + testsPassed + '</tblack> '
+  testText += '<tr><td class="align-top"><b><tblack>Total:</tblack></b><tblack> ' + testsTotal + '</tblack><br><rh-tag color="green"> Passed </rh-tag></b> <tblack>' + testsPassed + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-passed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'passed\',\'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tgy>Skipped:</tgy></b> <tblack>' + testsSkipped + '</tblack> '
+  testText += '<br><b><rh-tag color="gray"> Skipped </rh-tag></b> <tblack>' + testsSkipped + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-skipped-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'skipped\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><' + colorFailed + '>Failed:</' + colorFailed + '></b> <tblack>' + testsFailed + '</tblack> '
+  testText += '<br><b><rh-tag color="red"> Failed </rh-tag></b> <tblack>' + testsFailed + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-failed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'failed\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tpurple>Aborted:</tpurple></b> <tblack>' + testsAborted + '</tblack> '
+  testText += '<br><b><rh-tag color="purple"> Aborted </rh-tag></b> <tblack>' + testsAborted + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-aborted-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'aborted\', \'' + optionalMandatory + '\' )" >'
   testText += '</td><td>'
-  testText += '<div class="accordion" id="results-accordion">'
+  testText += '<rh-accordion class="rh-accordion" id="results-accordion">'
   return testText
 }
 
@@ -334,66 +336,70 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const testStatus = currentTestResult.state
   let buttontype = ''
   if (testStatus === 'passed') {
-    buttontype = 'bg-success text-white'
+    buttontype = '<rh-tag color="green">Passed</rh-tag></div>'
   } else if (testStatus === 'skipped') {
-    buttontype = 'bg-dark-subtle text-black'
+    buttontype = '<rh-tag color="gray">Skipped</rh-tag></div>'
   } else if (testStatus === 'aborted') {
-    buttontype = 'btn-purple'
+
+    buttontype = '<rh-tag color="purple">Aborted</rh-tag></div>'
   } else {
-    buttontype = 'bg-warning text-white'
+    buttontype = '<rh-tag color="red">Failed</rh-tag></div>'
     if (mandatoryOptional !== 'Optional' || tableName === 'all') {
-      buttontype = 'bg-danger text-white'
+      buttontype = '<rh-tag color="red">failed</rh-tag></div>'
     }
   }
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
-  commonTestTextContent += '<div data-id="' + testStatus + '" class="accordion-item"><h2 class="accordion-header" id="' + headingid + '"><button class="accordion-button collapsed ' + buttontype + '" type="button" data-bs-toggle="collapse" data-bs-target="#' + itemid + '" aria-expanded="true" aria-controls="' + itemid + '">'
-  commonTestTextContent += currentTestResult.testID.id + '</button></h2>'
-  // Now we should populate the item contents
-  commonTestTextContent += '<div id="' + itemid + '" class="accordion-collapse collapse" aria-labelledby="' + headingid + '">'
-  commonTestTextContent += '<div class="accordion-body" >'
-  // Inside the accordion, 1 table with the following columns header below:
+
+
+ commonTestTextContent += '<rh-accordion-header id="'+headingid +'" data-id="' + testStatus + '" data-bs-target="#' +
+  itemid + '" aria-expanded="true"> <div class=tag-header><h6>'+currentTestResult.testID.id+buttontype+'</h6></rh-accordion-header>'
+
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid+ '"aria-labelledby="' + headingid+'>'
   commonTestTextContent += '<h1>Results</h1>'
-  commonTestTextContent += '<div class="table-responsive">'
-  commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
-  commonTestTextContent += '<th>Test ID</th>'
-  commonTestTextContent += '<th class="th-lg">Test Text</th>'
-  commonTestTextContent += '<th>Duration</th>'
-  commonTestTextContent += '<th>State</th>'
-  commonTestTextContent += '<th>Test output</th>'
-  commonTestTextContent += '</tr></thead><tbody>'
+ commonTestTextContent += '<div class="table-responsive">'
+ commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
+ commonTestTextContent += '<th>Test ID</th>'
+ commonTestTextContent += '<th class="th-lg">Test Text</th>'
+ commonTestTextContent += '<th>Duration</th>'
+ commonTestTextContent += '<th>State</th>'
+ commonTestTextContent += '<th>Test output</th>'
+ commonTestTextContent += '</tr></thead><tbody>'
 
-  // content of the result table
-  // eslint-disable-next-line no-undef
-  dayjs.extend(window.dayjs_plugin_duration)
-  const duration = dayjs.duration(currentTestResult.duration / 1000000)
-  const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
-  let skippedReason = ''
-  if (currentTestResult.state === 'skipped') {
-    skippedReason = currentTestResult.failureReason
-    if (skippedReason === '') {
-      skippedReason = 'Test case skipped by configuration'
-    }
-    skippedReason = ' ( ' + skippedReason + ' )'
-  }
-  commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
-  commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
-  commonTestTextContent += '<td>' + formattedDuration + '</td>'
-  commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
-  commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
-  const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.capturedTestOutput)
-  const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.capturedTestOutput)
 
-  commonTestTextContent += '</tbody></table></div>'
 
-  commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
-  commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
+ // content of the result table
+ // eslint-disable-next-line no-undef
+ dayjs.extend(window.dayjs_plugin_duration)
+ const duration = dayjs.duration(currentTestResult.duration / 1000000)
+ const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
+ let skippedReason = ''
+ if (currentTestResult.state === 'skipped') {
+   skippedReason = currentTestResult.failureReason
+   if (skippedReason === '') {
+     skippedReason = 'Test case skipped by configuration'
+   }
+   skippedReason = ' ( ' + skippedReason + ' )'
+ }
+ commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
+ commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
+ commonTestTextContent += '<td>' + formattedDuration + '</td>'
+ commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
+ commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
+ const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.capturedTestOutput)
+ const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.capturedTestOutput)
 
-  commonTestTextContent += '<h1>Non-Compliant objects</h1>'
-  commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
-  commonTestTextContent += '<h1>Compliant objects</h1>'
-  commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
-  commonTestTextContent += '</div></div></div>'
+ commonTestTextContent += '</tbody></table></div>'
+
+ commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
+ commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
+
+ commonTestTextContent += '<h1>Non-Compliant objects</h1>'
+ commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
+ commonTestTextContent += '<h1>Compliant objects</h1>'
+ commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
+ commonTestTextContent += '</rh-accordion-panel>'
+
   return commonTestTextContent
 }
 
@@ -434,8 +440,8 @@ function fillResults (claimJson, mandatoryTableElement, optionalTableElement, ta
       testContentOptional += commonTestContent
     }
   }
-  testContentMandatory += '</div></td></tr></tbody>'
-  testContentOptional += '</div></td></tr></tbody>'
+  testContentMandatory += '</rh-accordion></td></tr></tbody>'
+  testContentOptional += '</rh-accordion></td></tr></tbody>'
   $(testContentMandatory).appendTo($(mandatoryTableElement))
   if (tableName !== 'all') {
     $(testContentOptional).appendTo($(optionalTableElement))
@@ -607,7 +613,7 @@ function getHtmlResults () {
     }
     const tableIdClean = tableId.replace(/#/g, '')
     const table = document.getElementById(tableIdClean)
-    const elements = table.getElementsByClassName('accordion-item')
+    const elements = table.getElementsByTagName('rh-accordion-header')
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i]
       const id = element.getAttribute('data-id')
@@ -621,7 +627,59 @@ function getHtmlResults () {
     }
   }
 `
+
+// add"importmap"
+const scriptElement = document.createElement('script');
+scriptElement.type = 'importmap';
+scriptElement.textContent= ` {
+  "imports": {
+    "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
+    "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
+    "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/"
+  },
+  "scopes": {
+    "https://ga.jspm.io/": {
+      "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/reactive-element.js",
+      "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/decorators/",
+      "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/",
+      "@patternfly/pfe-core": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/core.js",
+      "@patternfly/pfe-core/": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/",
+      "@rhds/tokens/media.js": "https://ga.jspm.io/npm:@rhds/tokens@1.1.2/js/media.js",
+      "lit": "https://ga.jspm.io/npm:lit@2.8.0/index.js",
+      "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@3.3.3/lit-element.js",
+      "lit-html": "https://ga.jspm.io/npm:lit-html@2.8.0/lit-html.js",
+      "lit-html/": "https://ga.jspm.io/npm:lit-html@2.8.0/",
+      "lit/": "https://ga.jspm.io/npm:lit@2.8.0/",
+      "tslib": "https://ga.jspm.io/npm:tslib@2.6.2/tslib.es6.mjs"
+    },
+    "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/": {
+      "lit": "https://ga.jspm.io/npm:lit@2.6.1/index.js",
+      "lit/": "https://ga.jspm.io/npm:lit@2.6.1/"
+    }
+  }
+}
+`
+doc.head.appendChild(scriptElement)
+
   doc.head.appendChild(script)
+
+  const sElement = document.createElement('script');
+  sElement.type="module"
+  sElement.textContent =   `
+  // import design system element definitions,
+  // which auto-register their tagnames once executed
+  import '@rhds/elements/rh-button/rh-button.js';
+  import '@rhds/elements/rh-dialog/rh-dialog.js';
+  import '@rhds/elements/rh-footer/rh-footer-universal.js';
+  import '@rhds/elements/rh-footer/rh-footer-universal.js';
+  import '@patternfly/elements/pf-text-input/pf-text-input.js';
+  import '@rhds/elements/rh-tabs/rh-tabs.js';
+  import '@rhds/elements/rh-accordion/rh-accordion.js';
+  import 'https://jspm.dev/@rhds/elements/rh-tag/rh-tag.js'
+  </script>
+  `
+
+  doc.head.appendChild(sElement);
 
   selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   insertResults(body, 'mandatory')
@@ -905,16 +963,10 @@ function getChildren (data, parentId) {
 
 // generates a single list item
 function generateListItem (data, item) {
-  const li = document.createElement('li')
+  const li = document.createElement('sl-tree-item')
   li.id = 'item-' + item.id
   if (hasChildren(data, item.id)) {
-    const a = document.createElement('a')
-    a.href = '#'
-    a.textContent = '+'
-    a.classList.add('plus')
-    a.title = 'hold shift to expand sub tree'
-    a.addEventListener('click', expand.bind(null, data), { once: true })
-    li.appendChild(a)
+    li.addEventListener('click', expand.bind(null, data,li), { once: true })
   }
   const span = document.createElement('span')
   span.textContent = item.name
@@ -923,7 +975,7 @@ function generateListItem (data, item) {
 }
 
 // event listener to support expanding children items on click
-function expand (data, event) {
+function expand (data,elem, event) {
   event.preventDefault()
   event.stopPropagation()
   const et = event.target
@@ -931,21 +983,15 @@ function expand (data, event) {
   const id = parent.id.replace('item-', '')
   const kids = getChildren(data, id)
   const items = kids.map(generateListItem.bind(null, data))
-  const ul = document.createElement('ul')
   items.forEach(function (li) {
-    ul.appendChild(li)
+    elem.appendChild(li)
   })
-  parent.appendChild(ul)
-  et.classList.remove('plus')
-  et.classList.add('minus')
-  et.textContent = '-'
-  et.addEventListener('click', collapse.bind(null, data), { once: true })
 
   if (event.shiftKey) {
     const max = countChildren(data, id, 0)
     console.log(max)
     initProgressBar()
-    expandAll({ value: ul }, max, { value: 2 })
+    expandAll({ value: elem }, max, { value: 2 })
   }
 }
 
@@ -955,11 +1001,8 @@ function collapse (data, event) {
   event.stopPropagation()
   const et = event.target
   const parent = et.parentElement
-  const ul = parent.querySelector('ul')
+  const ul = parent.querySelector('sl-tree')
   parent.removeChild(ul)
-  et.classList.remove('minus')
-  et.classList.add('plus')
-  et.textContent = '+'
   et.addEventListener('click', expand.bind(null, data), { once: true })
 }
 
@@ -969,7 +1012,7 @@ function addOrphans (data, rootObject) {
   const orphansArray = orphans(data)
   if (orphansArray.length) {
     const items = orphansArray.map(generateListItem.bind(null, data))
-    const ul = document.createElement('ul')
+    const ul = document.createElement('sl-tree')
     items.forEach(function (li) {
       ul.appendChild(li)
     })
@@ -1032,6 +1075,7 @@ function updateProgressBar (value) {
 
 // Initialize the progress bar to 0%
 function initProgressBar () {
+  document.getElementById('progress-bar').removeAttribute('hidden')
   const progressBar = document.querySelector('.progress-bar')
   progressBar.style.width = '0%'
 }
