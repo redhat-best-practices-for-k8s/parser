@@ -1,6 +1,6 @@
 
 
-@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css';
+@import "url('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css')";
 
 
 /* Add some basic styling */
@@ -14,7 +14,7 @@ html, body {
 header {
   height: var(--rh-length-5xl, 100px);
   background: var(--rh-color-surface-darkest, #151515);
-  color: var(--rh-color-text-primary-on-dark, #ffffff);
+  color: var(--rh-color-text-primary-on-dark, #fff);
   padding-inline : var(--rh-space-xl, 24px);
   display: flex;
   align-items: center;
@@ -22,17 +22,19 @@ header {
   grid-template-areas: 'header' 'main' 'footer'
 
 }
+
 progress {
   height: var(--rh-length-5xl, 60px);
   display: flex;
   align-items: center;
+  width: 0%
 }
-
 
 h1 {
   font-size: var(--rh-font-size-heading-2xl, 3rem);
   margin: 0;
 }
+
 main {
   grid-area: main;
   margin: var(--rh-space-xl, 10px);
@@ -70,13 +72,13 @@ rh-footer-universal {
 
 body {
 color: var(--rh-color-text-primary-on-light, #151515);
-background-color: var(--rh-color-surface-lightest, #ffffff);
+background-color: var(--rh-color-surface-lightest, #fff);
 display: grid;
 grid-template-areas: 'header' 'main' 'footer'
 }
 
 body.dark {
-color: var(--rh-color-text-primary-on-dark, #ffffff);
+color: var(--rh-color-text-primary-on-dark, #fff);
 background-color: var(--rh-color-surface-darkest, #151515);
 }
 
@@ -87,7 +89,6 @@ padding: 16px;
 [data-demo] {
 display: contents;
 }
-
 
 form h2 {
 width: 100%;
@@ -114,7 +115,7 @@ padding: 0;
 }
 
 a {
-color: var(--rh-color-interactive-blue-darker, #0066cc);
+color: var(--rh-color-interactive-blue-darker, #06c);
 }
 
 a:hover {
@@ -153,10 +154,6 @@ gap: var(--rh-space-lg, 16px);
 
 tblack {/* stylelint-disable-line */
 font-size: 17px;
-}
-
-progress {
-width: 0%
 }
 
 input.larger-checkbox {

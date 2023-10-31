@@ -340,7 +340,6 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   } else if (testStatus === 'skipped') {
     buttontype = '<rh-tag color="gray">Skipped</rh-tag></div>'
   } else if (testStatus === 'aborted') {
-
     buttontype = '<rh-tag color="purple">Aborted</rh-tag></div>'
   } else {
     buttontype = '<rh-tag color="red">Failed</rh-tag></div>'
@@ -351,54 +350,52 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
 
+  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
+  itemid + '" aria-expanded="true"> <div class=tag-header><h6>' + currentTestResult.testID.id+buttontype + '</h6></rh-accordion-header>'
 
- commonTestTextContent += '<rh-accordion-header id="'+headingid +'" data-id="' + testStatus + '" data-bs-target="#' +
-  itemid + '" aria-expanded="true"> <div class=tag-header><h6>'+currentTestResult.testID.id+buttontype+'</h6></rh-accordion-header>'
-
-  commonTestTextContent += '<rh-accordion-panel id="' + itemid+ '"aria-labelledby="' + headingid+'>'
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid+'>'
   commonTestTextContent += '<h1>Results</h1>'
- commonTestTextContent += '<div class="table-responsive">'
- commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
- commonTestTextContent += '<th>Test ID</th>'
- commonTestTextContent += '<th class="th-lg">Test Text</th>'
- commonTestTextContent += '<th>Duration</th>'
- commonTestTextContent += '<th>State</th>'
- commonTestTextContent += '<th>Test output</th>'
- commonTestTextContent += '</tr></thead><tbody>'
-
-
+  commonTestTextContent += '<div class="table-responsive">'
+  commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
+  commonTestTextContent += '<th>Test ID</th>'
+  commonTestTextContent += '<th class="th-lg">Test Text</th>'
+  commonTestTextContent += '<th>Duration</th>'
+  commonTestTextContent += '<th>State</th>'
+  commonTestTextContent += '<th>Test output</th>'
+  commonTestTextContent += '</tr></thead><tbody>'
 
  // content of the result table
  // eslint-disable-next-line no-undef
- dayjs.extend(window.dayjs_plugin_duration)
- const duration = dayjs.duration(currentTestResult.duration / 1000000)
- const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
- let skippedReason = ''
- if (currentTestResult.state === 'skipped') {
-   skippedReason = currentTestResult.failureReason
-   if (skippedReason === '') {
-     skippedReason = 'Test case skipped by configuration'
-   }
-   skippedReason = ' ( ' + skippedReason + ' )'
- }
- commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
- commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
- commonTestTextContent += '<td>' + formattedDuration + '</td>'
- commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
- commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
- const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.capturedTestOutput)
- const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.capturedTestOutput)
 
- commonTestTextContent += '</tbody></table></div>'
+  dayjs.extend(window.dayjs_plugin_duration)
+  const duration = dayjs.duration(currentTestResult.duration / 1000000)
+  const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
+  let skippedReason = ''
+  if (currentTestResult.state === 'skipped') {
+    skippedReason = currentTestResult.failureReason
+    if (skippedReason === '') {
+      skippedReason = 'Test case skipped by configuration'
+    }
+    skippedReason = ' ( ' + skippedReason + ' )'
+  }
+  commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
+  commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
+  commonTestTextContent += '<td>' + formattedDuration + '</td>'
+  commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
+  commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
+  const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.capturedTestOutput)
+  const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.capturedTestOutput)
 
- commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
- commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
+  commonTestTextContent += '</tbody></table></div>'
 
- commonTestTextContent += '<h1>Non-Compliant objects</h1>'
- commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
- commonTestTextContent += '<h1>Compliant objects</h1>'
- commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
- commonTestTextContent += '</rh-accordion-panel>'
+  commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
+  commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
+
+  commonTestTextContent += '<h1>Non-Compliant objects</h1>'
+  commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
+  commonTestTextContent += '<h1>Compliant objects</h1>'
+  commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
+  commonTestTextContent += '</rh-accordion-panel>'
 
   return commonTestTextContent
 }
@@ -632,40 +629,38 @@ function getHtmlResults () {
 const scriptElement = document.createElement('script');
 scriptElement.type = 'importmap';
 scriptElement.textContent= ` {
-  "imports": {
-    "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
-    "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
-    "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/"
-  },
-  "scopes": {
-    "https://ga.jspm.io/": {
-      "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/reactive-element.js",
-      "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/decorators/",
-      "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/",
-      "@patternfly/pfe-core": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/core.js",
-      "@patternfly/pfe-core/": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/",
-      "@rhds/tokens/media.js": "https://ga.jspm.io/npm:@rhds/tokens@1.1.2/js/media.js",
-      "lit": "https://ga.jspm.io/npm:lit@2.8.0/index.js",
-      "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@3.3.3/lit-element.js",
-      "lit-html": "https://ga.jspm.io/npm:lit-html@2.8.0/lit-html.js",
-      "lit-html/": "https://ga.jspm.io/npm:lit-html@2.8.0/",
-      "lit/": "https://ga.jspm.io/npm:lit@2.8.0/",
-      "tslib": "https://ga.jspm.io/npm:tslib@2.6.2/tslib.es6.mjs"
-    },
-    "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/": {
-      "lit": "https://ga.jspm.io/npm:lit@2.6.1/index.js",
-      "lit/": "https://ga.jspm.io/npm:lit@2.6.1/"
+      "imports": {
+        "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
+        "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
+        "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/"
+      },
+      "scopes": {
+        "https://ga.jspm.io/": {
+          "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/reactive-element.js",
+          "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/decorators/",
+          "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/",
+          "@patternfly/pfe-core": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/core.js",
+          "@patternfly/pfe-core/": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/",
+          "@rhds/tokens/media.js": "https://ga.jspm.io/npm:@rhds/tokens@1.1.2/js/media.js",
+          "lit": "https://ga.jspm.io/npm:lit@2.8.0/index.js",
+          "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@3.3.3/lit-element.js",
+          "lit-html": "https://ga.jspm.io/npm:lit-html@2.8.0/lit-html.js",
+          "lit-html/": "https://ga.jspm.io/npm:lit-html@2.8.0/",
+          "lit/": "https://ga.jspm.io/npm:lit@2.8.0/",
+          "tslib": "https://ga.jspm.io/npm:tslib@2.6.2/tslib.es6.mjs"
+        },
+        "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/": {
+          "lit": "https://ga.jspm.io/npm:lit@2.6.1/index.js",
+          "lit/": "https://ga.jspm.io/npm:lit@2.6.1/"
+        }
+      }
     }
-  }
-}
 `
-doc.head.appendChild(scriptElement)
-
+  doc.head.appendChild(scriptElement)
   doc.head.appendChild(script)
-
   const sElement = document.createElement('script');
   sElement.type="module"
-  sElement.textContent =   `
+  sElement.textContent = ` 
   // import design system element definitions,
   // which auto-register their tagnames once executed
   import '@rhds/elements/rh-button/rh-button.js';
@@ -677,7 +672,7 @@ doc.head.appendChild(scriptElement)
   import '@rhds/elements/rh-accordion/rh-accordion.js';
   import 'https://jspm.dev/@rhds/elements/rh-tag/rh-tag.js'
   </script>
-  `
+`
 
   doc.head.appendChild(sElement);
 
