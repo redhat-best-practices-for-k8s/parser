@@ -1,8 +1,10 @@
-@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css';
-   .accordion-button:not(.collapsed) {
+@import "url('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css')" ;
+   
+.accordion-button:not(.collapsed) {
       background-color: #9935dc;
       color: white;
     }
+
     html, body {
       font-family: var(--rh-font-family-body-text, RedHatText, "Red Hat Text", "Noto Sans Arabic", "Noto Sans Hebrew", Helvetica, Arial, sans-serif);
       margin: 0;
@@ -18,26 +20,26 @@
     header {
       height: var(--rh-length-5xl, 100px);
       background: var(--rh-color-surface-darkest, #151515);
-      color: var(--rh-color-text-primary-on-dark, #ffffff);
+      color: var(--rh-color-text-primary-on-dark, #fff);
       padding-inline : var(--rh-space-xl, 24px);
       display: flex;
       align-items: center;
       gap: var(--rh-space-xl, 24px);
       grid-area: header;
       grid-template-areas: 'header' 'main' 'footer'
-
     }
+
     progress {
       height: var(--rh-length-5xl, 60px);
       display: flex;
       align-items: center;
     }
 
-
     h1 {
       font-size: var(--rh-font-size-heading-2xl, 3rem);
       margin: 0;
     }
+
     main {
       grid-area: main;
       margin: var(--rh-space-xl, 10px);
@@ -46,6 +48,7 @@
       flex-flow: row wrap;
       margin-block: 10px; /* Set the vertical margin (top and bottom) */
      margin-inline: 20px;
+     flex-direction: column;
     }
 
     form {
@@ -68,22 +71,15 @@
       grid-area: footer;
 
     }
-    .right-align {
-            text-align: right;
-        } 
-        body {
+
+    body {
   color: var(--rh-color-text-primary-on-light, #151515);
-  background-color: var(--rh-color-surface-lightest, #ffffff);
+  background-color: var(--rh-color-surface-lightest, #fff);
 }
 
 body.dark {
-  color: var(--rh-color-text-primary-on-dark, #ffffff);
+  color: var(--rh-color-text-primary-on-dark, #fff);
   background-color: var(--rh-color-surface-darkest, #151515);
-}
-
-main {
-  display: flex;
-  flex-direction: column;
 }
 
 section {
@@ -92,10 +88,6 @@ section {
 
 [data-demo] {
   display: contents;
-}
-
-label {
-  display: block;
 }
 
 form h2 {
@@ -168,37 +160,6 @@ rh-accordion-header rh-tag {
       background-color: white;
     }
 
-    tg {/* stylelint-disable-line */
-      background-color: #28a745;
-      font-size: 20px;
-    }
-
-    tred {/* stylelint-disable-line */
-      background-color: #dc3545;
-      color: white;
-      font-size: 20px;
-    }
-
-    tpurple {/* stylelint-disable-line */
-      background-color: #9935dc;
-      color: white;
-      font-size: 20px;
-    }
-
-    ty {/* stylelint-disable-line */
-      background-color: #ffc107;
-      font-size: 20px;
-    }
-
-    tgy {/* stylelint-disable-line */
-      background-color: #ced4da;
-      font-size: 20px;
-    }
-    h5 {/* stylelint-disable-line */
-      background-color: #266bb0;
-      font-size: 20px;
-    }
-
     tblack {/* stylelint-disable-line */
       font-size: 17px;
     }
@@ -206,7 +167,6 @@ rh-accordion-header rh-tag {
     body {
       font-family: sans-serif;
     }
-
 
     .top-right {
       font-size: small;
@@ -223,23 +183,29 @@ rh-accordion-header rh-tag {
       width: 17px;
       height: 17px;
     }
+
     .colored-text {
       background-color: #9935dc;
       color: white;
       font-size: 20px;
     }
+
     .red{
       --_background-color: var(--rh-color-surface-lightest,red);
     }
+    
     .green{
       --_background-color: var(--rh-color-surface-lightest,green);
     }
+
     .gray{
       --_background-color: var(--rh-color-surface-lightest,gray);
     }
+
     .purple{
       --_background-color: var(--rh-color-surface-lightest,purple);
     }
+
     sl-tree-item::part(item--selected) {
       border-inline-start-color: red;
     }
