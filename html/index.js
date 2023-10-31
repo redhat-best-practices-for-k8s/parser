@@ -350,7 +350,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
 
-  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' + 
+  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
   itemid + '" aria-expanded="true"><div class=tag-header><h6>' + currentTestResult.testID.id + buttontype + '</h6></rh-accordion-header>'
 
   commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
