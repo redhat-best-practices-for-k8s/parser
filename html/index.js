@@ -350,8 +350,8 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
 
-  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
-   itemid + '" aria-expanded="true"> <div class=tag-header><h6>' + currentTestResult.testID.id+buttontype + '</h6></rh-accordion-header>'
+  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' + 
+  itemid + '" aria-expanded="true"><div class=tag-header><h6>' + currentTestResult.testID.id + buttontype + '</h6></rh-accordion-header>'
 
   commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<h1>Results</h1>'
@@ -622,9 +622,9 @@ function getHtmlResults () {
   }
 `
 
-  const scriptElement = document.createElement('script');
-  scriptElement.type = 'importmap';
-  scriptElement.textContent= ` {
+  const scriptElement = document.createElement('script')
+  scriptElement.type = 'importmap'
+  scriptElement.textContent = ` {
       "imports": {
         "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
         "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
@@ -654,8 +654,8 @@ function getHtmlResults () {
 `
   doc.head.appendChild(scriptElement)
   doc.head.appendChild(script)
-  const sElement = document.createElement('script');
-  sElement.type = "module"
+  const sElement = document.createElement('script')
+  sElement.type = 'module'
   sElement.textContent = ` 
   // import design system element definitions,
   // which auto-register their tagnames once executed
@@ -670,7 +670,7 @@ function getHtmlResults () {
   </script>
 `
 
-  doc.head.appendChild(sElement);
+  doc.head.appendChild(sElement)
 
   selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   insertResults(body, 'mandatory')
@@ -957,7 +957,7 @@ function generateListItem (data, item) {
   const li = document.createElement('sl-tree-item')
   li.id = 'item-' + item.id
   if (hasChildren(data, item.id)) {
-    li.addEventListener('click', expand.bind(null, data,li), { once: true })
+    li.addEventListener('click', expand.bind(null, data, li), { once: true })
   }
   const span = document.createElement('span')
   span.textContent = item.name
@@ -966,14 +966,14 @@ function generateListItem (data, item) {
 }
 
 // event listener to support expanding children items on click
-function expand (data,elem, event) {
+function expand (data, elem, event) {
   event.preventDefault()
   event.stopPropagation()
   const et = event.target
   const parent = et.parentElement
-  const id = parent.id.replace('item-' , '')
+  const id = parent.id.replace('item-', '')
   const kids = getChildren(data, id)
-  const items = kids.map(generateListItem.bind(null , data))
+  const items = kids.map(generateListItem.bind(null, data))
   items.forEach(function (li) {
     elem.appendChild(li)
   })
@@ -985,7 +985,6 @@ function expand (data,elem, event) {
     expandAll({ value: elem }, max, { value: 2 })
   }
 }
-
 
 // create top level HTML object for tree view (e.g. all the parent-less/orphan objects )
 function addOrphans (data, rootObject) {

@@ -2,15 +2,14 @@
 <html lang="en">
 
 <head>
+  <title>CNF Certification Test Parser</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CNF Certification Test Parser</title>
   <link rel="shortcut icon"
         type="image/svg+xml"
         sizes="any"
         href="https://ux.redhat.com/assets/logo-red-hat.svg">
         <link rel="shortcut icon" href="/assets/logo-red-hat.svg">
-        <title>Tabs | Red Hat Design System</title>
         <link rel="preconnect" href="https://ga.jspm.io">
         <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://ux.redhat.com/assets/packages/@rhds/elements/elements/rh-footer/rh-footer-lightdom.css">
@@ -46,9 +45,6 @@
     }
   </script>
 
-  <style>
-
-  </style>
   <link href="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.css" rel="stylesheet" />
   <script src="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.js"></script>
   <script type="module">
@@ -111,9 +107,9 @@
            <p hidden id="UploadFeedback">
             Upload Feedback File: <input type="file" id="feedbackFile">
           </p>
-          <rh-button  variant="secondary" id="download" type="button" variant="secondary" onclick="download()" hidden>Download
+          <rh-button  id="download" type="button" variant="secondary" onclick="download()" hidden>Download
             Results</rh-button >
-          <rh-button  variant="secondary" id="downloadjsonHandler" variant="secondary" type="button" onclick="downloadjsonHandler()"
+          <rh-button  id="downloadjsonHandler" variant="secondary" type="button" onclick="downloadjsonHandler()"
             hidden>Download Feedback as a JSON file</rh-button >
             <div>
             <label id="myCheck-mandatory" for="mandatory-checkbox" hidden>Show Mandatory Results for that scenario</label>
