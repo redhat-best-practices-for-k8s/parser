@@ -47,176 +47,7 @@
   </script>
 
   <style>
-    @import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css';
 
-
-    /* Add some basic styling */
-    html, body {
-      font-family: var(--rh-font-family-body-text, RedHatText, "Red Hat Text", "Noto Sans Arabic", "Noto Sans Hebrew", Helvetica, Arial, sans-serif);
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    body {
-      display: grid;
-      grid-template-areas: 'header' 'main' 'footer'
-          }
-
-    header {
-      height: var(--rh-length-5xl, 100px);
-      background: var(--rh-color-surface-darkest, #151515);
-      color: var(--rh-color-text-primary-on-dark, #ffffff);
-      padding-inline : var(--rh-space-xl, 24px);
-      display: flex;
-      align-items: center;
-      gap: var(--rh-space-xl, 24px);
-      grid-template-areas: 'header' 'main' 'footer'
-
-    }
-    progress {
-      height: var(--rh-length-5xl, 60px);
-      display: flex;
-      align-items: center;
-    }
-
-
-    h1 {
-      font-size: var(--rh-font-size-heading-2xl, 3rem);
-      margin: 0;
-    }
-    main {
-      grid-area: main;
-      margin: var(--rh-space-xl, 10px);
-      display: flex;
-      gap: var(--rh-space-lg, 16px);
-      flex-flow: row wrap;
-      margin-block: 10px; /* Set the vertical margin (top and bottom) */
-     margin-inline: 20px;
-    }
-
-    form {
-      display: contents;
-    }
-
-    fieldset {
-      display: grid;
-      flex: 1 1 100%;
-    }
-
-    label {
-      display: block;
-      font-weight: var(--rh-font-weight-heading-bold, 700);
-      margin-block-end: var(--rh-space-sm, 6px);
-    }
-
-    rh-footer-universal {
-      margin-block-start: auto;
-    }
-    .right-align {
-            text-align: right;
-        } 
-        body {
-  color: var(--rh-color-text-primary-on-light, #151515);
-  background-color: var(--rh-color-surface-lightest, #ffffff);
-}
-
-body.dark {
-  color: var(--rh-color-text-primary-on-dark, #ffffff);
-  background-color: var(--rh-color-surface-darkest, #151515);
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-}
-
-section {
-  padding: 16px;
-}
-
-[data-demo] {
-  display: contents;
-}
-
-label {
-  display: block;
-}
-
-form h2 {
-  width: 100%;
-}
-
-form output {
-  text-transform: capitalize;
-}
-
-datalist {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  writing-mode: vertical-lr;
-}
-
-datalist,
-input {
-  width: 200px;
-}
-
-option {
-  padding: 0;
-}
-
-a {
-  color: var(--rh-color-interactive-blue-darker, #0066cc);
-}
-
-a:hover {
-  color: var(--rh-color-interactive-blue-darkest, #004080);
-}
-
-a:visited {
-  color: var(--rh-color-interactive-purple-darker, #6753ac);
-}
-
-.dark a {
-  color: var(--rh-color-interactive-blue-lighter, #73bcf7);
-}
-
-.dark a:hover {
-  color: var(--rh-color-interactive-blue-lightest, #bee1f4);
-}
-
-.dark a:visited {
-  color: var(--rh-color-interactive-purple-lighter, #a18fff);
-}
-#config-table li {
-  list-style:none;
-}
-sl-tree-item::part(item--selected) {
-  border-inline-start-color: red;
-}
-rh-accordion-header rh-tag {
-  margin-inline-start: var(--rh-space-md, 8px);
-}
-.tag-header {
-  display: flex;
-  align-items: center;
-  gap: var(--rh-space-lg, 16px);
-}
-tblack {/* stylelint-disable-line */
-  font-size: 17px;
-}
-
-
-progress {
-  width: 0%
-}
-
-input.larger-checkbox {
-  width: 17px;
-  height: 17px;
-}
   </style>
   <link href="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.css" rel="stylesheet" />
   <script src="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.js"></script>
@@ -268,10 +99,9 @@ input.larger-checkbox {
 
         <main>
         <div class="mb-3">
-           <label for="formFile" class="form-label ">Upload claim.json file</label>
+          <h6>Upload claim.json file</h6>
            <input class="form-control" type="file" id="formFile">
-           <label for="selectScenarioComboBox" class="form-label ">
-             Choose a scenario:</label>
+           <h6>Choose a scenario:
            <select name="class" id="selectScenarioComboBox" onchange="selectScenarioHandler()">
              <option value="all"> All</option>
              <option value="faredge"> Far-Edge</option>
@@ -279,6 +109,7 @@ input.larger-checkbox {
              <option value="nontelco"> Non-Telco</option>
              <option value="extended"> Extended</option>
            </select>
+          </h6>
            <p hidden id="UploadFeedback">
             Upload Feedback File: <input type="file" id="feedbackFile">
           </p>
