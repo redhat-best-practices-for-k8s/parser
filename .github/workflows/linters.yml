@@ -30,13 +30,8 @@ jobs:
     name: HTML linter (html5validator) 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v10
-        with:
-          urls: |
-            https://example.com/
-            https://example.com/blog
-          budgetPath: ./html/index.html # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+      - uses: actions/checkout@v4
+      - name: Install validator
+        run: npm i -g html-validate
+      - name: Run html validator
+        run: html-validate html/index.html html/results.html
