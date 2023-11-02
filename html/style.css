@@ -156,6 +156,27 @@ width: 17px;
 height: 17px;
 }
 
-sl-tree-item::part(item--selected) {
-  border-inline-start-color: red;
+svg {
+  pointer-events: none;
+}
+
+ul li a.minus {
+  animation-name: anim-minus;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes anim-minus {
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+ul li a:active {
+  top: 1px;
+}
+
+ul li span {
+  display: inline-block;
+  margin: 0.25em 0.5em;
 }

@@ -954,10 +954,16 @@ function getChildren (data, parentId) {
 
 // generates a single list item
 function generateListItem (data, item) {
-  const li = document.createElement('sl-tree-item')
+  const li = document.createElement('li')
   li.id = 'item-' + item.id
   if (hasChildren(data, item.id)) {
-    li.addEventListener('click', expand.bind(null, data, li), { once: true })
+    const a = document.createElement('a')
+    a.href = '#'
+    a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></svg>`
+    a.title = 'hold shift to expand sub tree'
+    a.addEventListener('click', expand.bind(null, data), { once: true })
+    a.classList.add('plus')
+    li.appendChild(a)
   }
   const span = document.createElement('span')
   span.textContent = item.name
@@ -966,7 +972,7 @@ function generateListItem (data, item) {
 }
 
 // event listener to support expanding children items on click
-function expand (data, elem, event) {
+function expand (data, event) {
   event.preventDefault()
   event.stopPropagation()
   const et = event.target
@@ -974,16 +980,36 @@ function expand (data, elem, event) {
   const id = parent.id.replace('item-', '')
   const kids = getChildren(data, id)
   const items = kids.map(generateListItem.bind(null, data))
+  const ul = document.createElement('ul')
   items.forEach(function (li) {
-    elem.appendChild(li)
+    ul.appendChild(li)
   })
+  parent.appendChild(ul)
+  et.classList.remove('plus')
+  et.classList.add('minus')
+  et.innerHTML = `    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg">
+  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+</svg>`
+  et.addEventListener('click', collapse.bind(null, data), { once: true })
 
   if (event.shiftKey) {
     const max = countChildren(data, id, 0)
     console.log(max)
     initProgressBar()
-    expandAll({ value: elem }, max, { value: 2 })
+    expandAll({ value: ul }, max, { value: 2 })
   }
+}
+// event listener for collapsing items
+function collapse (data, event) {
+  event.preventDefault()
+  event.stopPropagation()
+  const et = event.target
+  const parent = et.parentElement
+  const ul = parent.querySelector('ul')
+  parent.removeChild(ul)
+  et.classList.remove('minus')
+  et.classList.add('plus')
+  et.addEventListener('click', expand.bind(null, data), { once: true })
 }
 
 // create top level HTML object for tree view (e.g. all the parent-less/orphan objects )
@@ -992,7 +1018,7 @@ function addOrphans (data, rootObject) {
   const orphansArray = orphans(data)
   if (orphansArray.length) {
     const items = orphansArray.map(generateListItem.bind(null, data))
-    const ul = document.createElement('sl-tree')
+    const ul = document.createElement('ul')
     items.forEach(function (li) {
       ul.appendChild(li)
     })
