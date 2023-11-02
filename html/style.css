@@ -172,10 +172,6 @@ ul li a.minus {
   }
 }
 
-ul li a:active {
-  top: 1px;
-}
-
 ul li span {
   display: inline-block;
   margin: 0.25em 0.5em;
