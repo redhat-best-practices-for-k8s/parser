@@ -64,7 +64,7 @@ function selectScenarioHandler () { // eslint-disable-line no-unused-vars
 // Refreshes the results tab content according to user filtering selections, scenario, etc,...
 function resfreshResultsTabContent () {
   hideAllResultsTabObjects()
-  enableSendDownloadButton()
+  enableFiltersResults()
   isResultTabActive = true
   const selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   const selectedValue = selectScenarioComboBox.options[selectScenarioComboBox.selectedIndex].value
@@ -72,10 +72,9 @@ function resfreshResultsTabContent () {
     showAll()
   } else {
     document.getElementById('results-table').setAttribute('hidden', 'hidden')
-    document.getElementById('myCheck-result').removeAttribute('hidden')
+    enableFiltersResults()
     document.getElementById('optional-checkbox').removeAttribute('hidden')
     document.getElementById('myCheck-mandatory').removeAttribute('hidden')
-    document.getElementById('mandatory-checkbox').removeAttribute('hidden')
   }
   makeResultsTableVisible('optional')
   makeResultsTableVisible('mandatory')
@@ -159,10 +158,17 @@ function showAll () {
 }
 
 // makes the "Download Results" button visible
-function enableSendDownloadButton () {
-  document.getElementById('download').removeAttribute('hidden')
-  document.getElementById('downloadjsonHandler').removeAttribute('hidden')
-  document.getElementById('UploadFeedback').removeAttribute('hidden')
+function disableFiltersResults () {
+  document.getElementById('filters').classList.add("read-only")
+  document.getElementById('outputs').classList.add("read-only")
+  document.getElementById('downloadjsonHandler').setAttribute('disabled','')
+  document.getElementById('download').setAttribute('disabled','')
+}
+function enableFiltersResults () {
+  document.getElementById('filters').classList.remove("read-only")
+  document.getElementById('outputs').classList.remove("read-only")
+  document.getElementById('downloadjsonHandler').removeAttribute('disabled')
+  document.getElementById('download').removeAttribute('disabled')
 }
 
 // hides all result specific objects, including tables, buttons, checkboxes
@@ -178,19 +184,7 @@ function hideAllResultsTabObjects () {
   document.getElementById('optional-far-edge-table').setAttribute('hidden', 'hidden')
   document.getElementById('optional-non-telco-table').setAttribute('hidden', 'hidden')
   document.getElementById('optional-extended-table').setAttribute('hidden', 'hidden')
-
-  document.getElementById('optional-telco-table').setAttribute('hidden', 'hidden')
-
-  document.getElementById('optional-checkbox').setAttribute('hidden', 'hidden')
-  document.getElementById('mandatory-checkbox').setAttribute('hidden', 'hidden')
-
-  document.getElementById('download').setAttribute('hidden', 'hidden')
-  document.getElementById('downloadjsonHandler').setAttribute('hidden', 'hidden')
-  document.getElementById('UploadFeedback').setAttribute('hidden', 'hidden')
-
-  document.getElementById('myCheck-result').setAttribute('hidden', 'hidden')
-
-  document.getElementById('myCheck-mandatory').setAttribute('hidden', 'hidden')
+  disableFiltersResults()
 }
 
 // fills the "version" tab element with the data from the claim.json passed in input
@@ -351,11 +345,10 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const headingid = 'heading' + id
 
   commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
-  itemid + '" aria-expanded="true"><div class=tag-header><h6>' + currentTestResult.testID.id + buttontype + '</h6></rh-accordion-header>'
-
+  itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></rh-accordion-header>'
   commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
-  commonTestTextContent += '<h1>Results</h1>'
   commonTestTextContent += '<div class="table-responsive">'
+  commonTestTextContent += '<h1 class="test-section">Results</h1>'
   commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
   commonTestTextContent += '<th>Test ID</th>'
   commonTestTextContent += '<th class="th-lg">Test Text</th>'
@@ -385,12 +378,12 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
 
   commonTestTextContent += '</tbody></table></div>'
 
-  commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
+  commonTestTextContent += '<h1 class="test-section">Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
   commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
 
-  commonTestTextContent += '<h1>Non-Compliant objects</h1>'
+  commonTestTextContent += '<h1 class="test-section">Non-Compliant objects</h1>'
   commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
-  commonTestTextContent += '<h1>Compliant objects</h1>'
+  commonTestTextContent += '<h1 class="test-section">Compliant objects</h1>'
   commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
   commonTestTextContent += '</rh-accordion-panel>'
 
@@ -824,7 +817,7 @@ function createReasonTableAllTypes (jsonData) {
   const aTypeMap = createTypeList(jsonData)
   let allTables = ''
   aTypeMap.forEach(function (value, key) {
-    allTables += '<h2> Type: ' + key + '</h2>'
+    allTables += '<h3 class="test-subsection"> Type: ' + key + '</h3>'
     allTables += '<div class="table-responsive">'
     allTables += createReasonTableOneType(jsonData, key)
     allTables += '</div>'
@@ -959,13 +952,11 @@ function generateListItem (data, item) {
   if (hasChildren(data, item.id)) {
     const a = document.createElement('a')
     a.href = '#'
-    a.innerHTML = ` 
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
-    </svg>`
+    a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></svg>`
     a.title = 'hold shift to expand sub tree'
     a.addEventListener('click', expand.bind(null, data), { once: true })
     a.classList.add('plus')
-    li.appendChild(a)
+    console.log( a)
   }
   const span = document.createElement('span')
   span.textContent = item.name
@@ -1001,6 +992,7 @@ function expand (data, event) {
     expandAll({ value: ul }, max, { value: 2 })
   }
 }
+
 // event listener for collapsing items
 function collapse (data, event) {
   event.preventDefault()
@@ -1052,7 +1044,6 @@ function expandAll (obj, max, count) {
     }, 0)
   }
 }
-
 // check if the object is a html link
 function isAnchorElement (obj) {
   return obj instanceof HTMLAnchorElement

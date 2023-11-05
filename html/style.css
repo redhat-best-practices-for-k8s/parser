@@ -1,26 +1,13 @@
-
-
-html, body {
+html,
+body {
   font-family: var(--rh-font-family-body-text, RedHatText, "Red Hat Text", "Noto Sans Arabic", "Noto Sans Hebrew", Helvetica, Arial, sans-serif);
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-header {
-  height: var(--rh-length-5xl, 100px);
-  background: var(--rh-color-surface-darkest, #151515);
-  color: var(--rh-color-text-primary-on-dark, #fff);
-  padding-inline : var(--rh-space-xl, 24px);
-  display: flex;
-  align-items: center;
-  gap: var(--rh-space-xl, 24px);
-  grid-template-areas: 'header' 'main' 'footer'
-
-}
-
 progress {
-  height: var(--rh-length-5xl, 60px);
+  height: 20px;
   display: flex;
   align-items: center;
   width: 0%
@@ -37,9 +24,9 @@ main {
   display: flex;
   gap: var(--rh-space-lg, 16px);
   flex-flow: row wrap;
-  margin-block: 10px; /* Set the vertical margin (top and bottom) */
- margin-inline: 20px;
- flex-direction: column;
+  margin-block: 10px;
+  margin-inline: 20px;
+  flex-direction: column;
 }
 
 form {
@@ -61,99 +48,124 @@ label {
   display: inline-block;
 }
 
-rh-footer-universal {
-  margin-block-start: auto;
-}
-
 body {
-color: var(--rh-color-text-primary-on-light, #151515);
-background-color: var(--rh-color-surface-lightest, #fff);
-display: grid;
-grid-template-areas: 'header' 'main' 'footer'
+  color: var(--rh-color-text-primary-on-light, #151515);
+  background-color: var(--rh-color-surface-lightest, #fff);
+  display: grid;
+  grid-template-areas: 'header' 'progress' 'main' 'footer'
 }
 
 body.dark {
-color: var(--rh-color-text-primary-on-dark, #fff);
-background-color: var(--rh-color-surface-darkest, #151515);
+  color: var(--rh-color-text-primary-on-dark, #fff);
+  background-color: var(--rh-color-surface-darkest, #151515);
 }
 
 section {
-padding: 16px;
+  padding: 16px;
 }
 
 [data-demo] {
-display: contents;
+  display: contents;
 }
 
 form h2 {
-width: 100%;
+  width: 100%;
 }
 
 form output {
-text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 datalist {
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-writing-mode: vertical-lr;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode: vertical-lr;
 }
 
 datalist,
 input {
-width: 200px;
+  width: 200px;
 }
 
 option {
-padding: 0;
+  padding: 0;
 }
 
 a {
-color: var(--rh-color-interactive-blue-darker, #06c);
+  color: var(--rh-color-interactive-blue-darker, #06c);
 }
 
 a:hover {
-color: var(--rh-color-interactive-blue-darkest, #004080);
+  color: var(--rh-color-interactive-blue-darkest, #004080);
 }
 
 a:visited {
-color: var(--rh-color-interactive-purple-darker, #6753ac);
+  color: var(--rh-color-interactive-purple-darker, #6753ac);
 }
 
 .dark a {
-color: var(--rh-color-interactive-blue-lighter, #73bcf7);
+  color: var(--rh-color-interactive-blue-lighter, #73bcf7);
 }
 
 .dark a:hover {
-color: var(--rh-color-interactive-blue-lightest, #bee1f4);
+  color: var(--rh-color-interactive-blue-lightest, #bee1f4);
 }
 
 .dark a:visited {
-color: var(--rh-color-interactive-purple-lighter, #a18fff);
+  color: var(--rh-color-interactive-purple-lighter, #a18fff);
 }
 
 #config-table li {
-list-style:none;
+  list-style: none;
+}
+
+#nodes-table li {
+  list-style: none;
 }
 
 rh-accordion-header rh-tag {
-margin-inline-start: var(--rh-space-md, 8px);
+  margin-inline-start: var(--rh-space-md, 8px);
 }
 
 .tag-header {
-display: flex;
-align-items: center;
-gap: var(--rh-space-lg, 16px);
+  display: flex;
+  align-items: center;
+  gap: var(--rh-space-lg, 16px);
 }
 
 tblack {/* stylelint-disable-line */
-font-size: 17px;
+  font-size: 17px;
 }
 
 input.larger-checkbox {
-width: 17px;
-height: 17px;
+  width: 17px;
+  height: 17px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 1.75em;
+}
+
+ul li {
+  border-bottom-left-radius: 0.75em;
+  border-top-left-radius: 0.75em;
+  margin: 2px 0;
+  position: relative;
+}
+
+ul li a {
+  border-radius: 50%;
+  color: #000;
+  display: inline-block;
+  height: 1.5em;
+  left: -1.5em;
+  line-height: 1.5em;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  width: 1.5em;
 }
 
 svg {
@@ -172,7 +184,140 @@ ul li a.minus {
   }
 }
 
+ul li a:active {
+  top: 1px;
+}
+
 ul li span {
   display: inline-block;
   margin: 0.25em 0.5em;
+}
+
+.top-right {
+  font-size: small;
+  position: fixed;
+  right: 1em;
+  top: 1em;
+}
+
+progress {
+  width: 0%
+}
+
+
+div.mb-3 {
+  display: grid;
+  grid-template-areas:
+    "inputs-header filters-header outputs-header"
+    "inputs filters outputs";
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 10px;
+}
+
+#inputs {
+  grid-area: inputs;
+}
+
+#filters {
+  grid-area: filters;
+  gap: 5px;
+}
+
+#outputs {
+  grid-area: outputs;
+  gap: 10px;
+}
+
+div.inputs-header {
+  grid-area: inputs-header;
+}
+
+div.filters-header {
+  grid-area: filters-header;
+  gap: 5px;
+}
+
+div.outputs-header {
+  grid-area: outputs-header;
+  gap: 10px;
+}
+
+header {
+  background: var(--rh-color-surface-darkest, #151515);
+  color: var(--rh-color-text-primary-on-dark, #fff);
+  padding-inline: var(--rh-space-xl, 24px);
+  display: flex;
+  align-items: center;
+  gap: var(--rh-space-xl, 24px);
+
+}
+
+div.progress {
+  height: 20px;
+  width: 100%;
+  grid-area: progress;
+}
+
+rh-tabs {
+  width: 100%;
+  min-height: 1200px;
+}
+
+rh-footer-universal {
+  grid-area: footer;
+  margin-block-start: auto;
+}
+
+div.float-right {
+  float: right;
+}
+
+.flow-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flow-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--rh-space-xl, 24px);
+}
+
+#mandatory-checkbox {
+  width: 20px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+#optional-checkbox {
+  width: 20px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.read-only {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.test-header {
+  font-size: 25px;
+  line-height: 25px;
+  font-weight: normal;
+}
+
+.test-section {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.test-subsection {
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: bold;
 }
