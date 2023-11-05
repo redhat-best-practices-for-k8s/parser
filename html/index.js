@@ -958,6 +958,7 @@ function generateListItem (data, item) {
     a.title = 'hold shift to expand sub tree'
     a.addEventListener('click', expand.bind(null, data), { once: true })
     a.classList.add('plus')
+    li.appendChild(a)
   }
   const span = document.createElement('span')
   span.textContent = item.name
