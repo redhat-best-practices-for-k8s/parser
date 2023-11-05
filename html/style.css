@@ -96,6 +96,19 @@ a {
   color: var(--rh-color-interactive-blue-darker, #06c);
 }
 
+ul li a {
+  border-radius: 50%;
+  color: #000;
+  display: inline-block;
+  height: 1.5em;
+  left: -1.5em;
+  line-height: 1.5em;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  width: 1.5em;
+}
+
 a:hover {
   color: var(--rh-color-interactive-blue-darkest, #004080);
 }
@@ -108,12 +121,23 @@ a:visited {
   color: var(--rh-color-interactive-blue-lighter, #73bcf7);
 }
 
+ul li a:active {
+  top: 1px;
+}
+
 .dark a:hover {
   color: var(--rh-color-interactive-blue-lightest, #bee1f4);
 }
 
 .dark a:visited {
   color: var(--rh-color-interactive-purple-lighter, #a18fff);
+}
+
+ul li {
+  border-bottom-left-radius: 0.75em;
+  border-top-left-radius: 0.75em;
+  margin: 2px 0;
+  position: relative;
 }
 
 #config-table li {
@@ -148,26 +172,6 @@ ul {
   padding-left: 1.75em;
 }
 
-ul li {
-  border-bottom-left-radius: 0.75em;
-  border-top-left-radius: 0.75em;
-  margin: 2px 0;
-  position: relative;
-}
-
-ul li a {
-  border-radius: 50%;
-  color: #000;
-  display: inline-block;
-  height: 1.5em;
-  left: -1.5em;
-  line-height: 1.5em;
-  position: absolute;
-  text-align: center;
-  text-decoration: none;
-  width: 1.5em;
-}
-
 svg {
   pointer-events: none;
 }
@@ -184,10 +188,6 @@ ul li a.minus {
   }
 }
 
-ul li a:active {
-  top: 1px;
-}
-
 ul li span {
   display: inline-block;
   margin: 0.25em 0.5em;
@@ -199,11 +199,6 @@ ul li span {
   right: 1em;
   top: 1em;
 }
-
-progress {
-  width: 0%
-}
-
 
 div.mb-3 {
   display: grid;

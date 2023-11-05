@@ -159,14 +159,14 @@ function showAll () {
 
 // makes the "Download Results" button visible
 function disableFiltersResults () {
-  document.getElementById('filters').classList.add("read-only")
-  document.getElementById('outputs').classList.add("read-only")
-  document.getElementById('downloadjsonHandler').setAttribute('disabled','')
-  document.getElementById('download').setAttribute('disabled','')
+  document.getElementById('filters').classList.add('read-only')
+  document.getElementById('outputs').classList.add('read-only')
+  document.getElementById('downloadjsonHandler').setAttribute('disabled', '')
+  document.getElementById('download').setAttribute('disabled', '')
 }
 function enableFiltersResults () {
-  document.getElementById('filters').classList.remove("read-only")
-  document.getElementById('outputs').classList.remove("read-only")
+  document.getElementById('filters').classList.remove('read-only')
+  document.getElementById('outputs').classList.remove('read-only')
   document.getElementById('downloadjsonHandler').removeAttribute('disabled')
   document.getElementById('download').removeAttribute('disabled')
 }
@@ -952,11 +952,12 @@ function generateListItem (data, item) {
   if (hasChildren(data, item.id)) {
     const a = document.createElement('a')
     a.href = '#'
-    a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></svg>`
+    a.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+    </svg>`
     a.title = 'hold shift to expand sub tree'
     a.addEventListener('click', expand.bind(null, data), { once: true })
     a.classList.add('plus')
-    console.log( a)
   }
   const span = document.createElement('span')
   span.textContent = item.name
