@@ -172,11 +172,11 @@ function enableFiltersResults () {
   document.getElementById('downloadjsonHandler').removeAttribute('disabled')
   document.getElementById('download').removeAttribute('disabled')
 }
-function disableOnShowAll(){
+function disableOnShowAll () {
   document.getElementById('mandatoryChecked').classList.add('read-only')
   document.getElementById('optionalChecked').classList.add('read-only')
 }
-function enableOnShowAll(){
+function enableOnShowAll () {
   document.getElementById('mandatoryChecked').classList.remove('read-only')
   document.getElementById('optionalChecked').classList.remove('read-only')
 }
