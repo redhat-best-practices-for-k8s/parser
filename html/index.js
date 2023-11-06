@@ -70,7 +70,9 @@ function resfreshResultsTabContent () {
   const selectedValue = selectScenarioComboBox.options[selectScenarioComboBox.selectedIndex].value
   if (selectedValue === 'all') {
     showAll()
+    disableOnShowAll()
   } else {
+    enableOnShowAll()
     document.getElementById('results-table').setAttribute('hidden', 'hidden')
     enableFiltersResults()
     document.getElementById('optional-checkbox').removeAttribute('hidden')
@@ -170,7 +172,14 @@ function enableFiltersResults () {
   document.getElementById('downloadjsonHandler').removeAttribute('disabled')
   document.getElementById('download').removeAttribute('disabled')
 }
-
+function disableOnShowAll(){
+  document.getElementById('mandatoryChecked').classList.add('read-only')
+  document.getElementById('optionalChecked').classList.add('read-only')
+}
+function enableOnShowAll(){
+  document.getElementById('mandatoryChecked').classList.remove('read-only')
+  document.getElementById('optionalChecked').classList.remove('read-only')
+}
 // hides all result specific objects, including tables, buttons, checkboxes
 function hideAllResultsTabObjects () {
   isResultTabActive = false
