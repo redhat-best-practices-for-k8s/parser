@@ -64,18 +64,19 @@ function selectScenarioHandler () { // eslint-disable-line no-unused-vars
 // Refreshes the results tab content according to user filtering selections, scenario, etc,...
 function resfreshResultsTabContent () {
   hideAllResultsTabObjects()
-  enableSendDownloadButton()
+  enableFiltersResults()
   isResultTabActive = true
   const selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   const selectedValue = selectScenarioComboBox.options[selectScenarioComboBox.selectedIndex].value
   if (selectedValue === 'all') {
     showAll()
+    disableCheckboxOnShowAll()
   } else {
+    enableCheckbox()
     document.getElementById('results-table').setAttribute('hidden', 'hidden')
-    document.getElementById('myCheck-result').removeAttribute('hidden')
+    enableFiltersResults()
     document.getElementById('optional-checkbox').removeAttribute('hidden')
     document.getElementById('myCheck-mandatory').removeAttribute('hidden')
-    document.getElementById('mandatory-checkbox').removeAttribute('hidden')
   }
   makeResultsTableVisible('optional')
   makeResultsTableVisible('mandatory')
@@ -128,7 +129,8 @@ function filterTestCasesBasedOnStateHandler (tableId, tableName, state, mandator
   }
   const tableIdClean = tableId.replace(/#/g, '')
   const table = document.getElementById(tableIdClean)
-  const elements = table.getElementsByClassName('accordion-item')
+  const elements = table.getElementsByTagName('rh-accordion-header')
+
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i]
     const id = element.getAttribute('data-id')
@@ -158,15 +160,30 @@ function showAll () {
 }
 
 // makes the "Download Results" button visible
-function enableSendDownloadButton () {
-  document.getElementById('download').removeAttribute('hidden')
-  document.getElementById('downloadjsonHandler').removeAttribute('hidden')
-  document.getElementById('UploadFeedback').removeAttribute('hidden')
+function disableFiltersResults () {
+  document.getElementById('filters').classList.add('read-only')
+  document.getElementById('outputs').classList.add('read-only')
+  document.getElementById('downloadjsonHandler').setAttribute('disabled', '')
+  document.getElementById('download').setAttribute('disabled', '')
 }
-
+function enableFiltersResults () {
+  document.getElementById('filters').classList.remove('read-only')
+  document.getElementById('outputs').classList.remove('read-only')
+  document.getElementById('downloadjsonHandler').removeAttribute('disabled')
+  document.getElementById('download').removeAttribute('disabled')
+}
+function disableCheckboxOnShowAll () {
+  document.getElementById('mandatoryChecked').classList.add('read-only')
+  document.getElementById('optionalChecked').classList.add('read-only')
+}
+function enableCheckbox () {
+  document.getElementById('mandatoryChecked').classList.remove('read-only')
+  document.getElementById('optionalChecked').classList.remove('read-only')
+}
 // hides all result specific objects, including tables, buttons, checkboxes
 function hideAllResultsTabObjects () {
   isResultTabActive = false
+  document.getElementById('progress-bar').setAttribute('hidden', 'hidden')
 
   document.getElementById('mandatory-far-edge-table').setAttribute('hidden', 'hidden')
   document.getElementById('mandatory-non-telco-table').setAttribute('hidden', 'hidden')
@@ -176,19 +193,7 @@ function hideAllResultsTabObjects () {
   document.getElementById('optional-far-edge-table').setAttribute('hidden', 'hidden')
   document.getElementById('optional-non-telco-table').setAttribute('hidden', 'hidden')
   document.getElementById('optional-extended-table').setAttribute('hidden', 'hidden')
-
-  document.getElementById('optional-telco-table').setAttribute('hidden', 'hidden')
-
-  document.getElementById('optional-checkbox').setAttribute('hidden', 'hidden')
-  document.getElementById('mandatory-checkbox').setAttribute('hidden', 'hidden')
-
-  document.getElementById('download').setAttribute('hidden', 'hidden')
-  document.getElementById('downloadjsonHandler').setAttribute('hidden', 'hidden')
-  document.getElementById('UploadFeedback').setAttribute('hidden', 'hidden')
-
-  document.getElementById('myCheck-result').setAttribute('hidden', 'hidden')
-
-  document.getElementById('myCheck-mandatory').setAttribute('hidden', 'hidden')
+  disableFiltersResults()
 }
 
 // fills the "version" tab element with the data from the claim.json passed in input
@@ -313,16 +318,16 @@ function generateTestCasesStatsElement (tableElement, tableName, optionalMandato
     testText = '<thead><tr><th style="width:15%" scope="col">' + optionalMandatory + ' Test  summary (' + tableNameMap[tableName] + ')</th><th scope="col">Test feedback</th></tr></thead><tbody>'
   }
 
-  testText += '<tr><td class="align-top"><b><tblack>Total:</tblack></b><tblack> ' + testsTotal + '</tblack><br><b><tg>Passed:</tg></b> <tblack>' + testsPassed + '</tblack> '
+  testText += '<tr><td class="align-top"><b><tblack>Total:</tblack></b><tblack> ' + testsTotal + '</tblack><br><rh-tag color="green"> Passed </rh-tag></b> <tblack>' + testsPassed + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-passed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'passed\',\'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tgy>Skipped:</tgy></b> <tblack>' + testsSkipped + '</tblack> '
+  testText += '<br><b><rh-tag color="gray"> Skipped </rh-tag></b> <tblack>' + testsSkipped + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-skipped-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'skipped\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><' + colorFailed + '>Failed:</' + colorFailed + '></b> <tblack>' + testsFailed + '</tblack> '
+  testText += '<br><b><rh-tag color="red"> Failed </rh-tag></b> <tblack>' + testsFailed + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-failed-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'failed\', \'' + optionalMandatory + '\' )" >'
-  testText += '<br><b><tpurple>Aborted:</tpurple></b> <tblack>' + testsAborted + '</tblack> '
+  testText += '<br><b><rh-tag color="purple"> Aborted </rh-tag></b> <tblack>' + testsAborted + '</tblack> '
   testText += '<input type="checkbox" class="larger-checkbox" id="filter-' + optionalMandatory + '-aborted-' + tableName + '" checked onclick="filterTestCasesBasedOnStateHandler(\'' + tableElement + '\',\'' + tableName + '\', \'aborted\', \'' + optionalMandatory + '\' )" >'
   testText += '</td><td>'
-  testText += '<div class="accordion" id="results-accordion">'
+  testText += '<rh-accordion class="rh-accordion" id="results-accordion">'
   return testText
 }
 
@@ -334,27 +339,25 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const testStatus = currentTestResult.state
   let buttontype = ''
   if (testStatus === 'passed') {
-    buttontype = 'bg-success text-white'
+    buttontype = '<rh-tag color="green">Passed</rh-tag></div>'
   } else if (testStatus === 'skipped') {
-    buttontype = 'bg-dark-subtle text-black'
+    buttontype = '<rh-tag color="gray">Skipped</rh-tag></div>'
   } else if (testStatus === 'aborted') {
-    buttontype = 'btn-purple'
+    buttontype = '<rh-tag color="purple">Aborted</rh-tag></div>'
   } else {
-    buttontype = 'bg-warning text-white'
+    buttontype = '<rh-tag color="red">Failed</rh-tag></div>'
     if (mandatoryOptional !== 'Optional' || tableName === 'all') {
-      buttontype = 'bg-danger text-white'
+      buttontype = '<rh-tag color="red">failed</rh-tag></div>'
     }
   }
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
-  commonTestTextContent += '<div data-id="' + testStatus + '" class="accordion-item"><h2 class="accordion-header" id="' + headingid + '"><button class="accordion-button collapsed ' + buttontype + '" type="button" data-bs-toggle="collapse" data-bs-target="#' + itemid + '" aria-expanded="true" aria-controls="' + itemid + '">'
-  commonTestTextContent += currentTestResult.testID.id + '</button></h2>'
-  // Now we should populate the item contents
-  commonTestTextContent += '<div id="' + itemid + '" class="accordion-collapse collapse" aria-labelledby="' + headingid + '">'
-  commonTestTextContent += '<div class="accordion-body" >'
-  // Inside the accordion, 1 table with the following columns header below:
-  commonTestTextContent += '<h1>Results</h1>'
+
+  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
+  itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></rh-accordion-header>'
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<div class="table-responsive">'
+  commonTestTextContent += '<h1 class="test-section">Results</h1>'
   commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
   commonTestTextContent += '<th>Test ID</th>'
   commonTestTextContent += '<th class="th-lg">Test Text</th>'
@@ -363,8 +366,6 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<th>Test output</th>'
   commonTestTextContent += '</tr></thead><tbody>'
 
-  // content of the result table
-  // eslint-disable-next-line no-undef
   dayjs.extend(window.dayjs_plugin_duration)
   const duration = dayjs.duration(currentTestResult.duration / 1000000)
   const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
@@ -386,14 +387,15 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
 
   commonTestTextContent += '</tbody></table></div>'
 
-  commonTestTextContent += '<h1>Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
+  commonTestTextContent += '<h1 class="test-section">Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
   commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
 
-  commonTestTextContent += '<h1>Non-Compliant objects</h1>'
+  commonTestTextContent += '<h1 class="test-section">Non-Compliant objects</h1>'
   commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
-  commonTestTextContent += '<h1>Compliant objects</h1>'
+  commonTestTextContent += '<h1 class="test-section">Compliant objects</h1>'
   commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
-  commonTestTextContent += '</div></div></div>'
+  commonTestTextContent += '</rh-accordion-panel>'
+
   return commonTestTextContent
 }
 
@@ -434,8 +436,8 @@ function fillResults (claimJson, mandatoryTableElement, optionalTableElement, ta
       testContentOptional += commonTestContent
     }
   }
-  testContentMandatory += '</div></td></tr></tbody>'
-  testContentOptional += '</div></td></tr></tbody>'
+  testContentMandatory += '</rh-accordion></td></tr></tbody>'
+  testContentOptional += '</rh-accordion></td></tr></tbody>'
   $(testContentMandatory).appendTo($(mandatoryTableElement))
   if (tableName !== 'all') {
     $(testContentOptional).appendTo($(optionalTableElement))
@@ -607,7 +609,7 @@ function getHtmlResults () {
     }
     const tableIdClean = tableId.replace(/#/g, '')
     const table = document.getElementById(tableIdClean)
-    const elements = table.getElementsByClassName('accordion-item')
+    const elements = table.getElementsByTagName('rh-accordion-header')
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i]
       const id = element.getAttribute('data-id')
@@ -621,7 +623,56 @@ function getHtmlResults () {
     }
   }
 `
+
+  const scriptElement = document.createElement('script')
+  scriptElement.type = 'importmap'
+  scriptElement.textContent = ` {
+      "imports": {
+        "@rhds/elements/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/",
+        "@rhds/elements/lib/": "https://ga.jspm.io/npm:@rhds/elements@1.2.0/elements/lib/",
+        "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/"
+      },
+      "scopes": {
+        "https://ga.jspm.io/": {
+          "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/reactive-element.js",
+          "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.3/decorators/",
+          "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/",
+          "@patternfly/pfe-core": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/core.js",
+          "@patternfly/pfe-core/": "https://ga.jspm.io/npm:@patternfly/pfe-core@2.4.1/",
+          "@rhds/tokens/media.js": "https://ga.jspm.io/npm:@rhds/tokens@1.1.2/js/media.js",
+          "lit": "https://ga.jspm.io/npm:lit@2.8.0/index.js",
+          "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@3.3.3/lit-element.js",
+          "lit-html": "https://ga.jspm.io/npm:lit-html@2.8.0/lit-html.js",
+          "lit-html/": "https://ga.jspm.io/npm:lit-html@2.8.0/",
+          "lit/": "https://ga.jspm.io/npm:lit@2.8.0/",
+          "tslib": "https://ga.jspm.io/npm:tslib@2.6.2/tslib.es6.mjs"
+        },
+        "https://ga.jspm.io/npm:@patternfly/elements@2.4.0/": {
+          "lit": "https://ga.jspm.io/npm:lit@2.6.1/index.js",
+          "lit/": "https://ga.jspm.io/npm:lit@2.6.1/"
+        }
+      }
+    }
+`
+  doc.head.appendChild(scriptElement)
   doc.head.appendChild(script)
+  const sElement = document.createElement('script')
+  sElement.type = 'module'
+  sElement.textContent = ` 
+  // import design system element definitions,
+  // which auto-register their tagnames once executed
+  import '@rhds/elements/rh-button/rh-button.js';
+  import '@rhds/elements/rh-dialog/rh-dialog.js';
+  import '@rhds/elements/rh-footer/rh-footer-universal.js';
+  import '@rhds/elements/rh-footer/rh-footer-universal.js';
+  import '@patternfly/elements/pf-text-input/pf-text-input.js';
+  import '@rhds/elements/rh-tabs/rh-tabs.js';
+  import '@rhds/elements/rh-accordion/rh-accordion.js';
+  import 'https://jspm.dev/@rhds/elements/rh-tag/rh-tag.js'
+  </script>
+`
+
+  doc.head.appendChild(sElement)
 
   selectScenarioComboBox = document.getElementById('selectScenarioComboBox')
   insertResults(body, 'mandatory')
@@ -775,7 +826,7 @@ function createReasonTableAllTypes (jsonData) {
   const aTypeMap = createTypeList(jsonData)
   let allTables = ''
   aTypeMap.forEach(function (value, key) {
-    allTables += '<h2> Type: ' + key + '</h2>'
+    allTables += '<h3 class="test-subsection"> Type: ' + key + '</h3>'
     allTables += '<div class="table-responsive">'
     allTables += createReasonTableOneType(jsonData, key)
     allTables += '</div>'
@@ -910,10 +961,12 @@ function generateListItem (data, item) {
   if (hasChildren(data, item.id)) {
     const a = document.createElement('a')
     a.href = '#'
-    a.textContent = '+'
-    a.classList.add('plus')
+    a.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+    </svg>`
     a.title = 'hold shift to expand sub tree'
     a.addEventListener('click', expand.bind(null, data), { once: true })
+    a.classList.add('plus')
     li.appendChild(a)
   }
   const span = document.createElement('span')
@@ -938,7 +991,9 @@ function expand (data, event) {
   parent.appendChild(ul)
   et.classList.remove('plus')
   et.classList.add('minus')
-  et.textContent = '-'
+  et.innerHTML = `    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" part="svg">
+  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+</svg>`
   et.addEventListener('click', collapse.bind(null, data), { once: true })
 
   if (event.shiftKey) {
@@ -959,7 +1014,6 @@ function collapse (data, event) {
   parent.removeChild(ul)
   et.classList.remove('minus')
   et.classList.add('plus')
-  et.textContent = '+'
   et.addEventListener('click', expand.bind(null, data), { once: true })
 }
 
@@ -1001,7 +1055,6 @@ function expandAll (obj, max, count) {
     }, 0)
   }
 }
-
 // check if the object is a html link
 function isAnchorElement (obj) {
   return obj instanceof HTMLAnchorElement
@@ -1032,6 +1085,7 @@ function updateProgressBar (value) {
 
 // Initialize the progress bar to 0%
 function initProgressBar () {
+  document.getElementById('progress-bar').removeAttribute('hidden')
   const progressBar = document.querySelector('.progress-bar')
   progressBar.style.width = '0%'
 }
