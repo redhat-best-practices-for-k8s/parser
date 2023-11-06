@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install validator
-        run: npm i -g html-validate
-      - name: Run html validator
-        run: html-validate html/index.html html/results.html
+      - uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: html/
+          extra: --ignore inline importmap
