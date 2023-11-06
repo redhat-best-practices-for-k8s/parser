@@ -70,9 +70,9 @@ function resfreshResultsTabContent () {
   const selectedValue = selectScenarioComboBox.options[selectScenarioComboBox.selectedIndex].value
   if (selectedValue === 'all') {
     showAll()
-    disableOnShowAll()
+    disableCheckboxOnShowAll()
   } else {
-    enableOnShowAll()
+    enableCheckbox()
     document.getElementById('results-table').setAttribute('hidden', 'hidden')
     enableFiltersResults()
     document.getElementById('optional-checkbox').removeAttribute('hidden')
@@ -172,11 +172,11 @@ function enableFiltersResults () {
   document.getElementById('downloadjsonHandler').removeAttribute('disabled')
   document.getElementById('download').removeAttribute('disabled')
 }
-function disableOnShowAll () {
+function disableCheckboxOnShowAll () {
   document.getElementById('mandatoryChecked').classList.add('read-only')
   document.getElementById('optionalChecked').classList.add('read-only')
 }
-function enableOnShowAll () {
+function enableCheckbox () {
   document.getElementById('mandatoryChecked').classList.remove('read-only')
   document.getElementById('optionalChecked').classList.remove('read-only')
 }
