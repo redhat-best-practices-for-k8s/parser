@@ -1,6 +1,6 @@
 /* global $ */
 /* global initialjson, feedback, AnsiUp, dayjs, FileReader, MouseEvent, HTMLAnchorElement */
-const expectedClaimVersion = 'v0.1.0'
+const expectedClaimVersion = 'v0.2.0'
 let isResultTabActive = false
 let claimGlobal
 let feedbackGlobal
@@ -252,7 +252,7 @@ function getTestCaseStats (claimJson, tableName) {
   let testsAbortedOptional = 0
   // Compute number of passed/skipped/failed results
   for (const testIdFromClaim in claimJson) {
-    const currentTestResult = claimJson[testIdFromClaim][0]
+    const currentTestResult = claimJson[testIdFromClaim]
     let mandatoryOptional = currentTestResult.categoryClassification.FarEdge
 
     if (tableName === 'telco') {
@@ -403,8 +403,8 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
 function fillResults (claimJson, mandatoryTableElement, optionalTableElement, tableName) {
   // sorting according to state
   const sortedClaimJson = Object.entries(claimJson).sort(function (a, b) {
-    const stringA = a[1][0].testID.id + a[1][0].state
-    const stringB = b[1][0].testID.id + b[1][0].state
+    const stringA = a[1].testID.id + a[1].state
+    const stringB = b[1].testID.id + b[1].state
     return stringA.localeCompare(stringB)
   })
   const sortedClaimJsonObj = Object.fromEntries(sortedClaimJson)
@@ -415,7 +415,7 @@ function fillResults (claimJson, mandatoryTableElement, optionalTableElement, ta
 
   let id = 1
   for (const testIdFromSortedClaim in sortedClaimJsonObj) {
-    const currentTestResult = claimJson[testIdFromSortedClaim][0]
+    const currentTestResult = claimJson[testIdFromSortedClaim]
     let mandatoryOptional = currentTestResult.categoryClassification.FarEdge
 
     if (tableName === 'telco') {
