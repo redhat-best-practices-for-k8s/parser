@@ -57,12 +57,12 @@ $(document).ready(function () {
 function selectScenarioHandler () { // eslint-disable-line no-unused-vars
   // only refreshes results tab if it is selected
   if (isResultTabActive === true) {
-    resfreshResultsTabContent()
+    refreshResultsTabContent()
   }
 }
 
 // Refreshes the results tab content according to user filtering selections, scenario, etc,...
-function resfreshResultsTabContent () {
+function refreshResultsTabContent () {
   hideAllResultsTabObjects()
   enableFiltersResults()
   isResultTabActive = true
