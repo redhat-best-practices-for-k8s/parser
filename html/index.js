@@ -1,6 +1,6 @@
 /* global $ */
 /* global initialjson, feedback, AnsiUp, dayjs, FileReader, MouseEvent, HTMLAnchorElement */
-const expectedClaimVersion = 'v0.2.0'
+const expectedClaimVersion = 'v0.3.0'
 let isResultTabActive = false
 let claimGlobal
 let feedbackGlobal
