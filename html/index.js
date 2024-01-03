@@ -199,7 +199,7 @@ function hideAllResultsTabObjects () {
 // fills the "version" tab element with the data from the claim.json passed in input
 function fillVersionsElement (input, element) {
   $(element).empty()
-  $('<colgroup><col><col></colgroup><thead><tr><th scope="col" data-label="Component">Component</th>'+
+  $('<colgroup><col><col></colgroup><thead><tr><th scope="col" data-label="Component">Component</th>' +
   '<th scope="col" data-label="Version">Version</th></tr></thead><tbody>').appendTo($(element))
   for (const key in input) {
     $('<tr><td data-label="Component"><b>' + key + '</b></td><td data-label="Version">' + input[key] + '</td></tr>').appendTo($(element))
