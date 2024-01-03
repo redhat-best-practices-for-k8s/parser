@@ -1,6 +1,6 @@
 /* global $ */
 /* global initialjson, feedback, AnsiUp, dayjs, FileReader, MouseEvent, HTMLAnchorElement */
-const expectedClaimVersion = 'v0.2.0'
+const expectedClaimVersion = 'v0.4.0'
 let isResultTabActive = false
 let claimGlobal
 let feedbackGlobal
@@ -372,7 +372,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const formattedDuration = duration.format('D[d] H[h] m[m] s[s] SSS[ms]')
   let skippedReason = ''
   if (currentTestResult.state === 'skipped') {
-    skippedReason = currentTestResult.failureReason
+    skippedReason = currentTestResult.skipReason
     if (skippedReason === '') {
       skippedReason = 'Test case skipped by configuration'
     }
@@ -383,8 +383,8 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<td>' + formattedDuration + '</td>'
   commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
   commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
-  const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.capturedTestOutput)
-  const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.capturedTestOutput)
+  const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.checkDetails)
+  const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.checkDetails)
 
   commonTestTextContent += '</tbody></table></div>'
 
