@@ -17,6 +17,8 @@ jobs:
       - name: Run Standard
         run: yarn standard html/index.js
       - uses: crate-ci/typos@master
+        with:
+          files: html/*
   css-linter:
     name: CSS linter (stylelint)
     runs-on: ubuntu-latest
