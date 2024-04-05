@@ -382,7 +382,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
   commonTestTextContent += '<td>' + formattedDuration + '</td>'
   commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
-  commonTestTextContent += '<td>' + ansiUp.ansi_to_html(ExtractLog(currentTestResult.capturedTestOutput)).replace(/\n/g, '<br>') + '</td></tr>'
+  commonTestTextContent += '<td>' + ansiUp.ansi_to_html(currentTestResult.capturedTestOutput).replace(/\n/g, '<br>') + '</td></tr>'
   const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.checkDetails)
   const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.checkDetails)
 
@@ -797,17 +797,6 @@ function CompliantReasonTextToJson (reasonText) {
     jsonObj = JSON.parse(jsonStr)
   }
   return jsonObj
-}
-
-// extract compliant json text from test output with regex
-function ExtractLog (fullLog) {
-  const regex = /(.*){"CompliantObjectsOut"/
-  const match = regex.exec(fullLog)
-  let logWithNoReason = fullLog
-  if (match) {
-    logWithNoReason = match[1]
-  }
-  return logWithNoReason
 }
 
 // create a list of object types present in json output
