@@ -354,9 +354,9 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const itemid = 'collapse' + id
   const headingid = 'heading' + id
 
-    commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
+  commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
     itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></div></rh-accordion-header>'
-    commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<h1 class="test-section">Results</h1>'
   commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
@@ -386,8 +386,6 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.checkDetails)
   const logOutput = ansiUp.ansi_to_html(currentTestResult.capturedTestOutput).replace(/\n/g, '<br>')
 
-
-
   commonTestTextContent += '<h1 class="test-section">Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
   commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
 
@@ -400,7 +398,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<rh-accordion class="rh-accordion" id="output-accordion">'
   commonTestTextContent += '<rh-accordion-header aria-expanded="true"><h1 class="test-header"> Test Output</h1></rh-accordion-header>'
   commonTestTextContent += '<rh-accordion-panel>'
-  commonTestTextContent += '<div style="width: 100%; margin: 0 auto;">'+logOutput+'</div>'
+  commonTestTextContent += '<div style="width: 100%; margin: 0 auto;">' + logOutput + '</div>'
   commonTestTextContent += '</rh-accordion-panel></rh-accordion >'
 
   // Close main accordion
