@@ -355,16 +355,14 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   const headingid = 'heading' + id
 
   commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
-  itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></rh-accordion-header>'
+    itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></div></rh-accordion-header>'
   commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<h1 class="test-section">Results</h1>'
-  commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
-  commonTestTextContent += '<th>Test ID</th>'
-  commonTestTextContent += '<th class="th-lg">Test Text</th>'
+  commonTestTextContent += '<rh-table><table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
+  commonTestTextContent += '<th>Test Description</th>'
   commonTestTextContent += '<th>Duration</th>'
   commonTestTextContent += '<th>State</th>'
-  commonTestTextContent += '<th>Test output</th>'
   commonTestTextContent += '</tr></thead><tbody>'
 
   dayjs.extend(window.dayjs_plugin_duration)
@@ -378,15 +376,13 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
     }
     skippedReason = ' ( ' + skippedReason + ' )'
   }
-  commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
-  commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
+  commonTestTextContent += '<td>' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
   commonTestTextContent += '<td>' + formattedDuration + '</td>'
   commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
-  commonTestTextContent += '<td>' + ansiUp.ansi_to_html(currentTestResult.capturedTestOutput).replace(/\n/g, '<br>') + '</td></tr>'
+  commonTestTextContent += '</tbody></table></rh-table></div>'
   const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.checkDetails)
   const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.checkDetails)
-
-  commonTestTextContent += '</tbody></table></div>'
+  const logOutput = ansiUp.ansi_to_html(currentTestResult.capturedTestOutput).replace(/\n/g, '<br>')
 
   commonTestTextContent += '<h1 class="test-section">Feedback</h1><label>Write your feedback for ' + currentTestResult.testID.id + ' test case</label>'
   commonTestTextContent += '<textarea style="width: 100%; margin: 0 auto;" rows = "5" id="source-' + tableName + '-' + currentTestResult.testID.id + '" type="text"></textarea>'
@@ -395,6 +391,15 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += createReasonTableAllTypes(jsonObjNonCompliant)
   commonTestTextContent += '<h1 class="test-section">Compliant objects</h1>'
   commonTestTextContent += createReasonTableAllTypes(jsonObjCompliant)
+
+  // Collapsible test output
+  commonTestTextContent += '<rh-accordion class="rh-accordion" id="output-accordion">'
+  commonTestTextContent += '<rh-accordion-header aria-expanded="true"><h1 class="test-header"> Test Output</h1></rh-accordion-header>'
+  commonTestTextContent += '<rh-accordion-panel>'
+  commonTestTextContent += '<div style="width: 100%; margin: 0 auto;">' + logOutput + '</div>'
+  commonTestTextContent += '</rh-accordion-panel></rh-accordion >'
+
+  // Close main accordion
   commonTestTextContent += '</rh-accordion-panel>'
 
   return commonTestTextContent
