@@ -359,9 +359,8 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
   commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<h1 class="test-section">Results</h1>'
-  commonTestTextContent += '<table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
-  commonTestTextContent += '<th>Test ID</th>'
-  commonTestTextContent += '<th class="th-lg">Test Text</th>'
+  commonTestTextContent += '<rh-table><table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
+  commonTestTextContent += '<th>Test Description</th>'
   commonTestTextContent += '<th>Duration</th>'
   commonTestTextContent += '<th>State</th>'
   commonTestTextContent += '</tr></thead><tbody>'
@@ -377,11 +376,10 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
     }
     skippedReason = ' ( ' + skippedReason + ' )'
   }
-  commonTestTextContent += '<tr><td  style="white-space: nowrap;">' + currentTestResult.testID.id + '</td>'
-  commonTestTextContent += '<td class="th-lg">' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
+  commonTestTextContent += '<td>' + currentTestResult.catalogInfo.description.replace(/\n/g, '<br>') + '</td>'
   commonTestTextContent += '<td>' + formattedDuration + '</td>'
   commonTestTextContent += '<td><b>' + currentTestResult.state + '</b>' + skippedReason + '</td>'
-  commonTestTextContent += '</tbody></table></div>'
+  commonTestTextContent += '</tbody></table></rh-table></div>'
   const jsonObjNonCompliant = NonCompliantReasonTextToJson(currentTestResult.checkDetails)
   const jsonObjCompliant = CompliantReasonTextToJson(currentTestResult.checkDetails)
   const logOutput = ansiUp.ansi_to_html(currentTestResult.capturedTestOutput).replace(/\n/g, '<br>')
