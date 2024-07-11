@@ -142,6 +142,19 @@ function filterTestCasesBasedOnStateHandler (tableId, tableName, state, mandator
       }
     }
   }
+
+  const panelElements = table.getElementsByTagName('rh-accordion-panel')
+  for (let i = 0; i < panelElements.length; i++) {
+    const element = panelElements[i]
+    const id = element.getAttribute('data-id')
+    if (id === state) {
+      if (show === true) {
+        element.removeAttribute('hidden')
+      } else {
+        element.setAttribute('hidden', 'hidden')
+      }
+    }
+  }
 }
 
 // Show the results table for the scenario "All" including all test cases
@@ -356,7 +369,7 @@ function generateTestcaseSingleResultElement (currentTestResult, tableName, id, 
 
   commonTestTextContent += '<rh-accordion-header id="' + headingid + '" data-id="' + testStatus + '" data-bs-target="#' +
     itemid + '" aria-expanded="true"><div class=tag-header><h1 class="test-header">' + currentTestResult.testID.id + buttontype + '</h1></div></rh-accordion-header>'
-  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '>'
+  commonTestTextContent += '<rh-accordion-panel id="' + itemid + '"aria-labelledby="' + headingid + '" data-id="' + testStatus + '">'
   commonTestTextContent += '<div class="table-responsive">'
   commonTestTextContent += '<h1 class="test-section">Results</h1>'
   commonTestTextContent += '<rh-table><table id="myTable-' + currentTestResult.testID.id + '" class="table table-bordered"><thead><tr>'
@@ -618,6 +631,18 @@ function getHtmlResults () {
     const elements = table.getElementsByTagName('rh-accordion-header')
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i]
+      const id = element.getAttribute('data-id')
+      if (id === state) {
+        if (show === true) {
+          element.removeAttribute('hidden')
+        } else {
+          element.setAttribute('hidden', 'hidden')
+        }
+      }
+    }
+    const panelElements = table.getElementsByTagName('rh-accordion-panel')
+    for (let i = 0; i < panelElements.length; i++) {
+      const element = panelElements[i]
       const id = element.getAttribute('data-id')
       if (id === state) {
         if (show === true) {
