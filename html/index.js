@@ -213,7 +213,7 @@ function hideAllResultsTabObjects () {
 function fillVersionsElement (input, element) {
   $(element).empty()
   $('<colgroup><col><col></colgroup><thead><tr><th scope="col" data-label="Component">Component</th>' +
-  '<th scope="col" data-label="Version">Version</th></tr></thead><tbody>').appendTo($(element))
+    '<th scope="col" data-label="Version">Version</th></tr></thead><tbody>').appendTo($(element))
   for (const key in input) {
     $('<tr><td data-label="Component"><b>' + key + '</b></td><td data-label="Version">' + input[key] + '</td></tr>').appendTo($(element))
   }
@@ -925,7 +925,7 @@ function formatForFastTreeview (parentKey, data, arr) {
       const result = formatForFastTreeview(objectID, data[key], arr)
       const childName = result.name
       const childNamespace = result.namespace
-      if (childName !== '') {
+      if (childName !== '' && childNamespace !== '') {
         objectName = childName
         objectNamespace = childNamespace
       }
