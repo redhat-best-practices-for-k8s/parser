@@ -9,7 +9,7 @@ on:
 jobs:
   check-result-html:
     name: check if result.html is up to date with index.html
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
       - name: install nodejs
